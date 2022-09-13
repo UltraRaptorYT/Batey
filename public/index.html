@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Singapore</title>
+    <style>
+      .hide {
+        display: none;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <button id="login">Log in with Google</button>
+    <button id="guest">Continue as guest</button>
+    <button id="logOut">Sign Out with Google</button>
+    <!-- <script src="./src/firebase.js"></script> -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithRedirect,
+        getRedirectResult,
+        signInWithPopup,
+        signOut,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyA-67sEFdlanL0T9V1mQmgIg3534LT1iFg",
+        authDomain: "shiokah.firebaseapp.com",
+        projectId: "shiokah",
+        storageBucket: "shiokah.appspot.com",
+        messagingSenderId: "946796488017",
+        appId: "1:946796488017:web:3b9770ac6f2116fdfc5f70",
+        measurementId: "G-K5MJFKJVYX",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider(app);
+      const firestore = getFirestore();
+      // Check if account is already login
+      if (localStorage.getItem("uid") && localStorage.getItem("userObj")) {
+        login.classList.add("hide");
+      } else {
+        logOut.classList.add("hide");
+      }
+      guest.addEventListener("click", async (e) => {
+        signInAnonymously(auth)
+          .then((result) => {
+            console.log(result);
+            const user = result.user;
+            alert("Signed in");
+            localStorage.setItem("uid", user.uid);
+            /*localStorage.setItem(
+              "userObj",
+              result
+            );*/
+            login.classList.add("hide");
+            logOut.classList.remove("hide");
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorMessage);
+          });
+      });
+      login.addEventListener("click", async (e) => {
+        // sign in with popup tab
+        signInWithPopup(auth, provider)
+          .then(async (result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            /*
+            const dataRow = doc(firestore, `progress/${user.uid}`);
+            var dataRowValue = await getDoc(dataRow);
+            if (!dataRowValue.exists()) {
+              var data = {
+                userName: user.displayName,
+                userEmail: user.email,
+                progress: 1,
+              };
+              try {
+                await setDoc(dataRow, data, { merge: true });
+              } catch (error) {
+                console.error(error);
+                return;
+              }
+              dataRowValue = await getDoc(dataRow);
+            }
+            console.log(dataRowValue.data());            
+            localStorage.setItem(
+              "userObj",
+              JSON.stringify(dataRowValue.data())
+            );
+            */
+            localStorage.setItem("uid", user.uid);
+            login.classList.add("hide");
+            logOut.classList.remove("hide");
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+            console.error(errorMessage);
+          });
+      });
+    </script>
+  </body>
+</html>
