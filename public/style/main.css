@@ -18,6 +18,7 @@ h1 {
 :root {
   --background-color: #48b1fd;
   --text-color: #000000;
+  --accent-color: #fdbb48;
 }
 
 body {
@@ -26,10 +27,20 @@ body {
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: var(--text-color);
 }
+
+.accent-bg {
+  background: var(--accent-color);
+}
+
+.accent-text {
+  color: var(--accent-color);
+}
+
 [class^="bi-"]::before,
 [class*=" bi-"]::before {
   line-height: normal;
 }
+
 .hide {
   display: none;
 }

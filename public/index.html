@@ -99,23 +99,48 @@
       // Check if account is already login
       if (localStorage.getItem("uid") && localStorage.getItem("userObj")) {
         login.classList.add("hide");
+        guest.classList.add("hide");
+        window.location.href = "./dashboard.html";
       } else {
         logOut.classList.add("hide");
       }
+      const checkUser = async (user, type) => {
+        const dataRow = doc(firestore, `user/${user.uid}`);
+        var dataRowValue = await getDoc(dataRow);
+        var firstTime = false;
+        if (!dataRowValue.exists()) {
+          var data = {
+            acorns: 0,
+            member: false,
+            type: type,
+          };
+          try {
+            await setDoc(dataRow, data, { merge: true });
+          } catch (error) {
+            console.error(error);
+            return false;
+          }
+          dataRowValue = await getDoc(dataRow);
+          firstTime = true;
+        }
+        console.log(dataRowValue.data());
+        localStorage.setItem("userObj", JSON.stringify(dataRowValue.data()));
+        localStorage.setItem("uid", user.uid);
+        login.classList.add("hide");
+        guest.classList.add("hide");
+        logOut.classList.remove("hide");
+        if (firstTime) {
+          window.location.href = "./info.html";
+        } else {
+          window.location.href = "./dashboard.html";
+        }
+        return;
+      };
       guest.addEventListener("click", async (e) => {
         signInAnonymously(auth)
-          .then((result) => {
-            console.log(result);
+          .then(async (result) => {
             const user = result.user;
-            alert("Signed in");
-            localStorage.setItem("uid", user.uid);
-            /*localStorage.setItem(
-              "userObj",
-              result
-            );*/
-            login.classList.add("hide");
-            guest.classList.add("hide");
-            logOut.classList.remove("hide");
+            await checkUser(user, "Guest");
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -124,41 +149,12 @@
           });
       });
       login.addEventListener("click", async (e) => {
-        // sign in with popup tab
         signInWithPopup(auth, provider)
           .then(async (result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
-            // The signed-in user info.
             const user = result.user;
-            /*
-            const dataRow = doc(firestore, `progress/${user.uid}`);
-            var dataRowValue = await getDoc(dataRow);
-            if (!dataRowValue.exists()) {
-              var data = {
-                userName: user.displayName,
-                userEmail: user.email,
-                progress: 1,
-              };
-              try {
-                await setDoc(dataRow, data, { merge: true });
-              } catch (error) {
-                console.error(error);
-                return;
-              }
-              dataRowValue = await getDoc(dataRow);
-            }
-            console.log(dataRowValue.data());            
-            localStorage.setItem(
-              "userObj",
-              JSON.stringify(dataRowValue.data())
-            );
-            */
-            localStorage.setItem("uid", user.uid);
-            login.classList.add("hide");
-            guest.classList.add("hide");
-            logOut.classList.remove("hide");
+            await checkUser(user, "Gmail");
           })
           .catch((error) => {
             // Handle Errors here.
