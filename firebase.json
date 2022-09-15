@@ -2,6 +2,21 @@
   "hosting": {
     "site": "shiok",
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/404.html"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/foo",
+        "destination": "/",
+        "type": 301
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
   }
 }
