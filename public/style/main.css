@@ -1,0 +1,46 @@
+@font-face {
+  font-family: "Rubik";
+  src: url("Rubik-VariableFont_wght.ttf") format("truetype");
+}
+
+h1 {
+  font-weight: black !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --background-color: #48b1fd;
+  --text-color: #000000;
+  --accent-color: #fdbb48;
+}
+
+body {
+  background: var(--background-color);
+  font-family: "Rubik", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--text-color);
+}
+
+.accent-bg {
+  background: var(--accent-color);
+}
+
+.accent-text {
+  color: var(--accent-color);
+}
+
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  line-height: normal;
+}
+
+.hide {
+  display: none;
+}
