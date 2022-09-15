@@ -13,22 +13,136 @@
     <link rel="stylesheet" href="./style/main.css" />
   </head>
   <body>
-    <div class="flex justify-around align-center my-2 text-xs">
-      <div class="rounded-full ascent-bg accent-text px-2">
-        --------------------
+    <form id="form" data-progress="2">
+      <div class="height container md:max-w-lg mx-auto flex flex-col gap-5">
+        <div
+          class="flex w-full justify-between align-center text-xxs gap-4 px-2 mb-2 pt-16"
+          id="progress"
+        >
+          <div class="rounded-full w-full" data-doing="false">&nbsp;</div>
+          <div class="rounded-full w-full" data-doing="false">&nbsp;</div>
+          <div class="rounded-full w-full" data-doing="false">&nbsp;</div>
+          <div class="rounded-full w-full" data-doing="false">&nbsp;</div>
+          <div class="rounded-full w-full" data-doing="false">&nbsp;</div>
+        </div>
+        <div>
+          <h2 class="text-center text-xl font-black" id="miniTitle"></h2>
+          <h1 class="text-center text-3xl font-black" id="megaTitle"></h1>
+        </div>
+        <div class="container w-2/3 mx-auto" id="edit"></div>
+        <div class="container w-2/3 mx-auto mt-auto pb-16">
+          <div class="flex gap-4 justify-between text-lg pb-7">
+            <button
+              type="submit"
+              class="text-white bg-blue-600 hover:bg-blue-700 w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="rounded-full bg-white text-white px-2">
-        --------------------
-      </div>
-      <div class="rounded-full bg-white text-white px-2">
-        --------------------
-      </div>
-      <div class="rounded-full bg-white text-white px-2">
-        --------------------
-      </div>
-      <div class="rounded-full bg-white text-white px-2">
-        --------------------
-      </div>
-    </div>
+    </form>
+    <script>
+      const form = document.getElementById("form");
+      var miniArr = [`How should we address you?`,`Looking great!`];
+      var megaArr = [`Profile Details`,`Upload Photo`];
+      var progress = [
+        `<div class="flex flex-col gap-7 text-lg">
+            <div class="flex gap-2 justify-between text-lg">
+              <input
+                class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+                type="text"
+                placeholder="First Name"
+                id="firstName"
+                required
+              />
+              <input
+                class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+                type="text"
+                placeholder="Last Name"
+                id="lastName"
+                required
+              />
+            </div>
+            <input
+              class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+              type="number"
+              min="7"
+              max="100"
+              step="1"
+              placeholder="Age"
+              id="age"
+              required
+            />
+            <select
+              class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+              required
+            >
+              <option value="" disabled selected hidden>Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+            <input
+              class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+              type="number"
+              min="50"
+              max="250"
+              step="1"
+              placeholder="Height (cm)"
+              id="height"
+              required
+            /><input
+              class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+              type="number"
+              min="20"
+              max="250"
+              step="0.1"
+              placeholder="Weight (kg)"
+              id="weight"
+              required
+            />
+          </div>
+        </div>`,
+      ];
+      const update = () => {
+        var progressChild = document.getElementById("progress").children;
+        for (let i = 0; i < form.dataset.progress; i++) {
+          progressChild[i].classList.remove("bg-white", "text-white");
+          progressChild[i].classList.add("accent-bg", "accent-text");
+        }
+        for (let i = form.dataset.progress; i < progressChild.length; i++) {
+          progressChild[i].classList.add("bg-white", "text-white");
+          progressChild[i].classList.remove("accent-bg", "accent-text");
+        }
+        document.getElementById("megaTitle").innerHTML =
+          megaArr[form.dataset.progress - 1];
+        document.getElementById("miniTitle").innerHTML =
+          miniArr[form.dataset.progress - 1];
+        document.getElementById("edit").innerHTML =
+          progress[form.dataset.progress - 1];
+      };
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        alert("submitted");
+        form.dataset.progress = parseInt(form.dataset.progress) + 1;
+        var progressChild = document.getElementById("progress").children;
+        if (progressChild[form.dataset.progress - 1] == undefined) {
+          alert("done");
+          return;
+        }
+        progressChild[form.dataset.progress - 1].dataset.doing = "true";
+        update();
+      });
+      update();
+    </script>
+    <script>
+      window.onbeforeunload = function () {
+        return !0;
+      };
+      let vh = 0.01 * window.innerHeight;
+      console.log(vh),
+        document.documentElement.style.setProperty("--vh", vh + "px");
+    </script>
   </body>
 </html>
