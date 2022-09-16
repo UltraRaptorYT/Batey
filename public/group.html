@@ -13,15 +13,42 @@
     <link rel="stylesheet" href="./style/main.css" />
   </head>
   <body>
-    Group
+
+    <header class="w-full md:max-w-lg mx-auto bg-slate-200 fixed left-0.5 right-0.5">
+      <h1 class="text-2xl">Swipe with Friends</h1>
+    </header>
+    <div class="height container md:max-w-lg mx-auto flex flex-col gap-5"></div>
+    <footer
+      class="w-full md:max-w-lg mx-auto bg-slate-200 fixed left-0.5 right-0.5 bottom-0 rounded-tl-[25px] rounded-tr-[25px] flex gap-5 justify-around"
+    >
+      <div class="flex flex-col p-2 ">
+        <img class="aspect-square icon mx-auto " src="./img/dashboard.png" alt="" />
+        <p class="text-center text-xxs font-weight-bold">Dashboard</p>
+      </div>
+      <div class="flex flex-col p-2">
+        <img class="aspect-square icon mx-auto" src="./img/party.png" alt="" />
+        <p class="text-center text-xxs font-weight-bold">Group Mode</p>
+      </div>
+      <div class="flex flex-col p-2">
+        <img class="aspect-square icon mx-auto" src="./img/acorn.png" alt="" />
+        <p class="text-center text-xxs font-weight-bold">Shiok</p>
+      </div>
+      <div class="flex flex-col p-2">
+        <img class="aspect-square icon mx-auto" src="./img/notification.png" alt="" />
+        <p class="text-center text-xxs font-weight-bold">Notification</p>
+      </div>
+      <div class="flex flex-col p-2">
+        <img class="aspect-square icon mx-auto" src="./img/user.png" alt="" />
+        <p class="text-center text-xxs font-weight-bold">Profile</p>
+      </div>
+    </footer>
     <script>
       let vh = 0.01 * window.innerHeight;
       console.log(vh),
         document.documentElement.style.setProperty("--vh", vh + "px");
     </script>
     <script>
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
       function generateString(length) {
         let result = "";
