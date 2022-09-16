@@ -78,6 +78,8 @@
         signInWithPopup,
         signOut,
         signInAnonymously,
+        setPersistence,
+        browserLocalPersistence,
       } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
 
       const firebaseConfig = {
@@ -98,11 +100,11 @@
       const firestore = getFirestore();
       // Check if account is already login
       if (localStorage.getItem("uid") && localStorage.getItem("userObj")) {
-        login.classList.add("hide");
-        guest.classList.add("hide");
+        login.classList.add("hidden");
+        guest.classList.add("hidden");
         window.location.href = "./dashboard.html";
       } else {
-        logOut.classList.add("hide");
+        logOut.classList.add("hidden");
       }
       const checkUser = async (user, type) => {
         const dataRow = doc(firestore, `user/${user.uid}`);
@@ -113,6 +115,9 @@
             acorns: 0,
             member: false,
             type: type,
+            pfp:
+              user.photoURL ||
+              "https://raw.githubusercontent.com/UltraRaptorYT/SPIT/main/server/img/default.png",
           };
           try {
             await setDoc(dataRow, data, { merge: true });
@@ -124,11 +129,12 @@
           firstTime = true;
         }
         console.log(dataRowValue.data());
+        localStorage.setItem("result", JSON.stringify(user));
         localStorage.setItem("userObj", JSON.stringify(dataRowValue.data()));
         localStorage.setItem("uid", user.uid);
-        login.classList.add("hide");
-        guest.classList.add("hide");
-        logOut.classList.remove("hide");
+        login.classList.add("hidden");
+        guest.classList.add("hidden");
+        logOut.classList.remove("hidden");
         if (firstTime) {
           window.location.href = "./info.html";
         } else {
@@ -137,35 +143,63 @@
         return;
       };
       guest.addEventListener("click", async (e) => {
-        signInAnonymously(auth)
-          .then(async (result) => {
-            const user = result.user;
-            await checkUser(user, "Guest");
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error(errorMessage);
-          });
-      });
-      login.addEventListener("click", async (e) => {
-        signInWithPopup(auth, provider)
-          .then(async (result) => {
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            const user = result.user;
-            await checkUser(user, "Gmail");
+        setPersistence(auth, browserLocalPersistence)
+          .then(() => {
+            // Existing and future Auth states are now persisted in the current
+            // session only. Closing the window would clear any existing state even
+            // if a user forgets to sign out.
+            // ...
+            // New sign-in will be persisted with session persistence.
+            return signInAnonymously(auth)
+              .then(async (result) => {
+                const user = result.user;
+                await checkUser(user, "Guest");
+              })
+              .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error(errorMessage);
+              });
           })
           .catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
+          });
+      });
+      login.addEventListener("click", async (e) => {
+        setPersistence(auth, browserLocalPersistence)
+          .then(() => {
+            // Existing and future Auth states are now persisted in the current
+            // session only. Closing the window would clear any existing state even
+            // if a user forgets to sign out.
             // ...
-            console.error(errorMessage);
+            // New sign-in will be persisted with session persistence.
+            return signInWithPopup(auth, provider)
+              .then(async (result) => {
+                const credential =
+                  GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                await checkUser(user, "Gmail");
+              })
+              .catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential =
+                  GoogleAuthProvider.credentialFromError(error);
+                // ...
+                console.error(errorMessage);
+              });
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
           });
       });
       logOut.addEventListener("click", (e) => {
@@ -174,9 +208,9 @@
             // Sign-out successful.
             localStorage.removeItem("uid");
             localStorage.removeItem("uid");
-            login.classList.remove("hide");
-            guest.classList.remove("hide");
-            logOut.classList.add("hide");
+            login.classList.remove("hidden");
+            guest.classList.remove("hidden");
+            logOut.classList.add("hidden");
           })
           .catch((error) => {
             // An error happened.
@@ -184,9 +218,6 @@
       });
     </script>
     <script>
-      window.onbeforeunload = function () {
-        return !0;
-      };
       let vh = 0.01 * window.innerHeight;
       console.log(vh),
         document.documentElement.style.setProperty("--vh", vh + "px");

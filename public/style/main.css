@@ -53,6 +53,105 @@ body {
   line-height: normal;
 }
 
-.hide {
+label[for="pfp"] {
+  cursor: pointer;
+}
+.checkFlex {
+  display: block;
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkFlex input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.checkFlex:hover input ~ .checkmark {
+  background-color: #eee;
+}
+.checkFlex input:checked ~ .checkmark {
+  background-color: #fff;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
   display: none;
+}
+
+.checkFlex input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkFlex .checkmark:after {
+  content: "\2714";
+  font-weight: black;
+  left: 3px;
+  top: -5px;
+  font-size: 2rem;
+}
+.drag-container {
+  width: 20px;
+}
+
+.drag-container.left {
+  background: -moz-linear-gradient(
+    left,
+    rgba(220, 28, 19, 1) 0%,
+    rgba(240, 116, 112, 0.62) 38%,
+    rgba(246, 189, 192, 0.01) 100%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(220, 28, 19, 1) 0%,
+    rgba(240, 116, 112, 0.62) 38%,
+    rgba(246, 189, 192, 0.01) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(220, 28, 19, 1) 0%,
+    rgba(240, 116, 112, 0.62) 38%,
+    rgba(246, 189, 192, 0.01) 100%
+  );
+}
+.drag-container.right {
+  background: -moz-linear-gradient(
+    right,
+    rgba(46, 182, 44, 1) 0%,
+    rgba(131, 212, 117, 0.62) 38%,
+    rgba(197, 232, 183, 0.01) 100%
+  );
+  background: -webkit-linear-gradient(
+    right,
+    rgba(46, 182, 44, 1) 0%,
+    rgba(131, 212, 117, 0.62) 38%,
+    rgba(197, 232, 183, 0.01) 100%
+  );
+  background: linear-gradient(
+    to left,
+    rgba(46, 182, 44, 1) 0%,
+    rgba(131, 212, 117, 0.62) 38%,
+    rgba(197, 232, 183, 0.01) 100%
+  );
 }
