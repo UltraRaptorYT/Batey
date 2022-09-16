@@ -1,268 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shiok!</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./style/main.css" />
-  </head>
-  <body>
-    <div class="height flex justify-center">
-      <div class="drag-container left"></div>
-      `
-      <div class="height container md:max-w-lg flex flex-col gap-5 relative">
-        <div class="flex justify-between mx-2"><img alt="as" />s</div>
-        <div class="w-full h-screen" id="foodGen">
-          <img
-            src="https://geekculture.co/wp-content/uploads/2022/09/mcdonalds-singapore-pikachu-carrier-3.jpg"
-            class="w-full object-cover h-full"
-          />
-        </div>
-        <div class="flex justify-between mx-2">
-          <p>I love it</p>
-          <button>GO BACK</button>
-          <p>I love it</p>
-        </div>
-        <div class="flex justify-between mx-2"><img alt="as" />s</div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shiok!</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./style/main.css" />
+</head>
+
+<body>
+  <div class="height flex justify-center">
+    <div class="drag-container left"></div>
+    `
+    <div class="height container md:max-w-lg flex flex-col gap-5 relative">
+      <div class="flex justify-between mx-2"><img alt="as" />s</div>
+      <div class="w-full h-screen" id="foodGen">
+        <img src="https://geekculture.co/wp-content/uploads/2022/09/mcdonalds-singapore-pikachu-carrier-3.jpg"
+          class="w-full object-cover h-full" />
       </div>
-      <div class="drag-container right"></div>
-      `
+      <div class="flex justify-between mx-2">
+        <p>I love it</p>
+        <button>GO BACK</button>
+        <p>I love it</p>
+      </div>
+      <div class="flex justify-between mx-2"><img alt="as" />s</div>
     </div>
-    <script>
-      let vh = 0.01 * window.innerHeight;
-      console.log(vh),
-        document.documentElement.style.setProperty("--vh", vh + "px");
-    </script>
-    <script>
-      var foodDict = {
-        "Chicken Rice": {
-          "Hong Yu's Chick":
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
-          "Kaleb's Chick":
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
-        },
-        "Fried Chicken": {
-          KFC: "https://www.kfc.com.sg//Content/OnlineOrderingImages/Menu/Items/DEL_Satay_Crunch_Chicken_ALC.jpg",
-          "Texas Chicken":
-            "https://assets.grab.com/wp-content/uploads/sites/8/2019/03/12143755/Texas-Chicken-Chicken-Combo-delivery-kl-700x700.jpg",
-        },
-        Burgers: {
-          McDonald:
-            "https://b.zmtcdn.com/data/pictures/chains/0/20630/a1bb80a3bdb9968b0b937458ae6acfa8.jpg?fit=around|300:273",
-          KFC: "https://cdn.discordapp.com/attachments/1018710809360220221/1020012348183949362/unknown.png",
-        }
-      };
-      function genNumber(start, end, int = true) {
-        console.log(end);
-        console.log(start);
-        if (int) {
-          return Math.floor(Math.random() * end + start);
-        }
+    <div class="drag-container right"></div>
+    `
+  </div>
+  <script>
+    let vh = 0.01 * window.innerHeight;
+    console.log(vh),
+      document.documentElement.style.setProperty("--vh", vh + "px");
+  </script>
+  <script>
+    var foodDict = {
+      "Chicken Rice": {
+        "Hong Yu's Chick":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+        "Kaleb's Chick":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+      },
+      "Fried Chicken": {
+        KFC: "https://www.kfc.com.sg//Content/OnlineOrderingImages/Menu/Items/DEL_Satay_Crunch_Chicken_ALC.jpg",
+        "Texas Chicken":
+          "https://assets.grab.com/wp-content/uploads/sites/8/2019/03/12143755/Texas-Chicken-Chicken-Combo-delivery-kl-700x700.jpg",
+      },
+      Burgers: {
+        McDonald:
+          "https://b.zmtcdn.com/data/pictures/chains/0/20630/a1bb80a3bdb9968b0b937458ae6acfa8.jpg?fit=around|300:273",
+        KFC: "https://cdn.discordapp.com/attachments/1018710809360220221/1020012348183949362/unknown.png",
       }
-
-      function history() {
-        let history = [];
-        return {
-          add: function (item) {
-            history.push(item);
-          },
-          get: function () {
-            return history;
-          },
-        };
+    };
+    function genNumber(start, end, int = true) {
+      if (int) {
+        return Math.floor(Math.random() * end + start);
       }
+    }
 
-      function getImage(first = true) {
-        if (first) {
-          let foodArr = [];
-          for (let [i, food] of Object.entries(foodDict)) {
-            foodArr.push(
-              Object.values(food)[genNumber(0, Object.entries(food).length)]
-            );
+
+    function getImage() {
+      let foodArr = [];
+      for (let [i, food] of Object.entries(foodDict)) {
+        foodArr.push(
+          Object.values(food)[genNumber(0, Object.entries(food).length)]
+        );
+      }
+      return foodArr[genNumber(0, foodArr.length)];
+    }
+
+    var historyArr = []
+
+    function populate(historyArr, length) {
+      do {
+
+        for (let i = length; i >= 0; i--) {
+          if (!historyArr.includes(food)) {
+            historyArr.push(food)
           }
-          return foodArr[genNumber(0, foodArr.length)];
         }
-      }
+        historyArr.push(getImage())
+        for (let i = 0; i < historyArr.length; i++) {
+          if (historyArr[i] == historyArr[historyArr.length - 1]) {
+            historyArr.pop()
+          }
+          historyArr.push(getImage())
+        }
+      } while (historyArr.length <= length)
+      return historyArr
+    }
+    // console.log(populate(historyArr, 2))
 
-      document.getElementById("foodGen").innerHTML = `    
-      <div class="drag-item w-full object-cover h-full" draggable="true">
+
+
+    document.getElementById("foodGen").innerHTML = `    
+      <div class="drag-item w-full object-cover h-full relative z-100" draggable="true">
         <img src="${getImage()}" class="w-full object-cover h-full" />
-      </div>`;
-    </script>
-    <!--Dragging-->
+        <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">Chicken Rice</h2>
+      </div>
+      
+      <!--<div class="drag-item w-full object-cover h-full relative z-0 absolute" draggable="true">
+        <img src="${getImage()}" class="w-full object-cover h-full" />
+        <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">Chicken Rice</h2>
+      </div>-->`;
+  </script>
+  <!--Dragging-->
 
-    <script>
-      function dragStart(e) {
-        dragSrcEl = this;
+  <script>
+    function dragStart(e) {
+      dragSrcEl = this;
+    }
+
+    function dragEnter(e) {
+      this.classList.add("drag-over");
+    }
+
+    function dragLeave(e) {
+      e.stopPropagation();
+      this.classList.remove("drag-over");
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+      return false;
+    }
+
+    function dragDrop(e) {
+      if (dragSrcEl.classList.contains("drag-item")) {
+        this.appendChild(dragSrcEl);
+        //  if (this.children.length > 1) {
+        //     this.children[0].remove();
+        //   }
       }
 
-      function dragEnter(e) {
-        this.classList.add("drag-over");
-      }
+      // var generator = document.querySelectorAll(".generate");
+      // [].forEach.call(generator, function (item) {
+      //   generateMedicine(item);
+      // });
 
-      function dragLeave(e) {
-        e.stopPropagation();
-        this.classList.remove("drag-over");
-      }
-
-      function dragOver(e) {
-        e.preventDefault();
-        return false;
-      }
-
-      function dragDrop(e) {
-        if (dragSrcEl.classList.contains("drag-item")) {
-          this.appendChild(dragSrcEl);
-          //  if (this.children.length > 1) {
-          //     this.children[0].remove();
-          //   }
-        }
-        
-        // var generator = document.querySelectorAll(".generate");
-        // [].forEach.call(generator, function (item) {
-        //   generateMedicine(item);
-        // });
-
-        var listItems = document.querySelectorAll(".drag-item");
-        [].forEach.call(listItems, function (item) {
-          addEventsDragAndDrop(item);
-        });
-        return false;
-      }
-
-      function dragEnd(e) {
-        var listItems = document.querySelectorAll(".drag-container");
-        [].forEach.call(listItems, function (item) {
-          item.classList.remove("drag-over");
-        });
-      }
-
-      function touchStart(e) {
-        this.classList.add("drag-item--touchmove");
-      }
-
-      var scrollDelay = 0;
-      var scrollDirection = 1;
-      function pageScroll(a, b) {
-        window.scrollBy(0, scrollDirection); // horizontal and vertical scroll increments
-        scrollDelay = setTimeout(pageScroll, 5); // scrolls every 100 milliseconds
-
-        if (a > window.innerHeight - b) {
-          scrollDirection = 1;
-        }
-        if (a < 0 + b) {
-          scrollDirection = -1 * scrollDirection;
-        }
-      }
-
-      var x = 1;
-      function touchMove(e) {
-        var touchLocation = e.targetTouches[0],
-          w = this.offsetWidth,
-          h = this.offsetHeight;
-
-        lastMove = e;
-        touchEl = this;
-        this.style.width = w + "px";
-        this.style.height = h + "px";
-        this.style.position = "fixed";
-        this.style.left = touchLocation.clientX - w / 2 + "px";
-        this.style.top = touchLocation.clientY - h / 2 + "px";
-
-        if (
-          touchLocation.clientY > window.innerHeight - h ||
-          touchLocation.clientY < 0 + h
-        ) {
-          if (x === 1) {
-            x = 0;
-            pageScroll(touchLocation.clientY, h);
-          }
-        } else {
-          clearTimeout(scrollDelay);
-          x = 1;
-        }
-      }
-
-      function touchEnd(e) {
-        var box1 = this.getBoundingClientRect(),
-          x1 = box1.left,
-          y1 = box1.top,
-          h1 = this.offsetHeight,
-          w1 = this.offsetWidth,
-          b1 = y1 + h1,
-          r1 = x1 + w1;
-
-        var targets = document.querySelectorAll(".drag-container");
-        [].forEach.call(targets, function (target) {
-          var box2 = target.getBoundingClientRect(),
-            x2 = box2.left,
-            y2 = box2.top,
-            h2 = target.offsetHeight,
-            w2 = target.offsetWidth,
-            b2 = y2 + h2,
-            r2 = x2 + w2;
-
-          if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) {
-            return false;
-          } else {
-            if (touchEl.classList.contains("drag-item")) {
-              target.appendChild(touchEl);
-              // if (target.children.length > 1) {
-              //   target.children[0].remove();
-              // }
-            }
-            // var generator = document.querySelectorAll(".generate");
-            // [].forEach.call(generator, function (item) {
-            //   generateMedicine(item);
-            // });
-
-            var listItems = document.querySelectorAll(".drag-item");
-            [].forEach.call(listItems, function (item) {
-              addEventsDragAndDrop(item);
-            });
-          }
-        });
-
-        this.removeAttribute("style");
-        this.classList.remove("drag-item--touchmove");
-        clearTimeout(scrollDelay);
-        x = 1;
-      }
-
-      function addEventsDragAndDrop(el) {
-        el.addEventListener("dragstart", dragStart, false);
-        el.addEventListener("dragend", dragEnd, false);
-        el.addEventListener("touchstart", touchStart, {
-          once: false,
-          passive: true,
-        });
-        el.addEventListener("touchmove", touchMove, {
-          once: false,
-          passive: true,
-        });
-        el.addEventListener("touchend", touchEnd, false);
-      }
-
-      function addTargetEvents(target) {
-        target.addEventListener("dragover", dragOver, false);
-        target.addEventListener("dragenter", dragEnter, false);
-        target.addEventListener("dragleave", dragLeave, false);
-        target.addEventListener("drop", dragDrop, false);
-      }
       var listItems = document.querySelectorAll(".drag-item");
       [].forEach.call(listItems, function (item) {
         addEventsDragAndDrop(item);
       });
+      return false;
+    }
+
+    function dragEnd(e) {
+      var listItems = document.querySelectorAll(".drag-container");
+      [].forEach.call(listItems, function (item) {
+        item.classList.remove("drag-over");
+      });
+    }
+
+    function touchStart(e) {
+      this.classList.add("drag-item--touchmove");
+    }
+
+    var scrollDelay = 0;
+    var scrollDirection = 1;
+    function pageScroll(a, b) {
+      window.scrollBy(0, scrollDirection); // horizontal and vertical scroll increments
+      scrollDelay = setTimeout(pageScroll, 5); // scrolls every 100 milliseconds
+
+      if (a > window.innerHeight - b) {
+        scrollDirection = 1;
+      }
+      if (a < 0 + b) {
+        scrollDirection = -1 * scrollDirection;
+      }
+    }
+
+    var x = 1;
+    function touchMove(e) {
+      var touchLocation = e.targetTouches[0],
+        w = this.offsetWidth,
+        h = this.offsetHeight;
+
+      lastMove = e;
+      touchEl = this;
+      this.style.width = w + "px";
+      this.style.height = h + "px";
+      this.style.position = "fixed";
+      this.style.left = touchLocation.clientX - w / 2 + "px";
+      this.style.top = touchLocation.clientY - h / 2 + "px";
+
+      if (
+        touchLocation.clientY > window.innerHeight - h ||
+        touchLocation.clientY < 0 + h
+      ) {
+        if (x === 1) {
+          x = 0;
+          pageScroll(touchLocation.clientY, h);
+        }
+      } else {
+        clearTimeout(scrollDelay);
+        x = 1;
+      }
+    }
+
+    function touchEnd(e) {
+      var box1 = this.getBoundingClientRect(),
+        x1 = box1.left,
+        y1 = box1.top,
+        h1 = this.offsetHeight,
+        w1 = this.offsetWidth,
+        b1 = y1 + h1,
+        r1 = x1 + w1;
+
       var targets = document.querySelectorAll(".drag-container");
       [].forEach.call(targets, function (target) {
-        addTargetEvents(target);
+        var box2 = target.getBoundingClientRect(),
+          x2 = box2.left,
+          y2 = box2.top,
+          h2 = target.offsetHeight,
+          w2 = target.offsetWidth,
+          b2 = y2 + h2,
+          r2 = x2 + w2;
+
+        if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) {
+          return false;
+        } else {
+          if (touchEl.classList.contains("drag-item")) {
+            target.appendChild(touchEl);
+            // if (target.children.length > 1) {
+            //   target.children[0].remove();
+            // }
+          }
+          // var generator = document.querySelectorAll(".generate");
+          // [].forEach.call(generator, function (item) {
+          //   generateMedicine(item);
+          // });
+
+          var listItems = document.querySelectorAll(".drag-item");
+          [].forEach.call(listItems, function (item) {
+            addEventsDragAndDrop(item);
+          });
+        }
       });
-    </script>
-  </body>
+
+      this.removeAttribute("style");
+      this.classList.remove("drag-item--touchmove");
+      clearTimeout(scrollDelay);
+      x = 1;
+    }
+
+    function addEventsDragAndDrop(el) {
+      el.addEventListener("dragstart", dragStart, false);
+      el.addEventListener("dragend", dragEnd, false);
+      el.addEventListener("touchstart", touchStart, {
+        once: false,
+        passive: true,
+      });
+      el.addEventListener("touchmove", touchMove, {
+        once: false,
+        passive: true,
+      });
+      el.addEventListener("touchend", touchEnd, false);
+    }
+
+    function addTargetEvents(target) {
+      target.addEventListener("dragover", dragOver, false);
+      target.addEventListener("dragenter", dragEnter, false);
+      target.addEventListener("dragleave", dragLeave, false);
+      target.addEventListener("drop", dragDrop, false);
+    }
+    var listItems = document.querySelectorAll(".drag-item");
+    [].forEach.call(listItems, function (item) {
+      addEventsDragAndDrop(item);
+    });
+    var targets = document.querySelectorAll(".drag-container");
+    [].forEach.call(targets, function (target) {
+      addTargetEvents(target);
+    });
+  </script>
+</body>
+
 </html>

@@ -167,6 +167,7 @@ label[for="pfp"] {
   );
 }
 
+<<<<<<< Updated upstream
 .icon {
   width: 40px;
 }
@@ -174,3 +175,25 @@ label[for="pfp"] {
 footer {
   height: 60px;
 }
+=======
+.grad {
+  background: -moz-linear-gradient(
+    bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.62) 38%,
+    rgba(0, 0, 0, 0.01) 100%
+  );
+  background: -webkit-linear-gradient(
+    bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.62) 38%,
+    rgba(0, 0, 0, 0.01) 100%
+  );
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.62) 38%,
+    rgba(0, 0, 0, 0.01) 100%
+  );
+}
+>>>>>>> Stashed changes
