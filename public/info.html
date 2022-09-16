@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./style/main.css" />
   </head>
   <body>
-    <form id="form" data-progress="3">
+    <form id="form" data-progress="1">
       <div class="height container md:max-w-lg mx-auto flex flex-col gap-5">
         <div
           class="flex w-full justify-between align-center text-xxs gap-4 px-2 mb-2 pt-16"
@@ -29,15 +29,7 @@
           <h2 class="text-center text-xl font-black" id="miniTitle"></h2>
           <h1 class="text-center text-3xl font-black" id="megaTitle"></h1>
         </div>
-        <div class="container w-2/3 mx-auto" id="edit">
-          <div class="flex flex-col gap-7 text-xl" id="allergy">
-            <label class="flex items-center gap-5 checkFlex">
-              <input type="checkbox" id="Halal" />
-              <span class="checkmark"></span>
-              <p>Halal</p>
-            </label>
-          </div>
-        </div>
+        <div class="container w-2/3 mx-auto" id="edit"></div>
         <div class="container w-2/3 mx-auto mt-auto pb-16">
           <div class="flex gap-4 justify-between text-lg pb-7">
             <button
@@ -161,7 +153,7 @@
               </div>`,
         `
               <div class="flex flex-col gap-7 text-lg">
-                  <div class="w-full aspect-square">
+                  <div class="w-8/12 mx-auto aspect-square">
                     <img
                       class="w-full h-full object-cover rounded-full"
                       src="${defaultImg}"
@@ -172,7 +164,7 @@
                   <label
                     class="bg-white hover:bg-slate-100 w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
                     for="pfp"
-                    >Browse</label
+                    >Upload</label
                   >
                   <input
                     type="file"
@@ -183,7 +175,13 @@
                   />
                 </div>
               `,
-        `Allergies`,
+        `<div class="flex flex-col gap-7 text-xl" id="allergy">
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Halal" />
+              <span class="checkmark"></span>
+              <p>Halal</p>
+            </label>
+          </div>`,
       ];
       const update = async () => {
         var progressChild = document.getElementById("progress").children;
@@ -200,8 +198,8 @@
         document.getElementById("miniTitle").innerHTML =
           miniArr[form.dataset.progress - 1];
 
-        //document.getElementById("edit").innerHTML =
-        //          progress[form.dataset.progress - 1];
+        document.getElementById("edit").innerHTML =
+          progress[form.dataset.progress - 1];
 
         document.getElementById("back").classList.remove("hidden");
         if (form.dataset.progress - 1 == 0) {
@@ -295,7 +293,6 @@
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        alert("submitted");
         form.dataset.progress = parseInt(form.dataset.progress) + 1;
         var progressChild = document.getElementById("progress").children;
         if (progressChild[form.dataset.progress - 1] == undefined) {
