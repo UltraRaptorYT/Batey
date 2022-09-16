@@ -18,7 +18,9 @@
   </head>
 
   <body>
-    <div class="flex justify-between px-2 py-2 items-center measure">
+    <div
+      class="flex justify-between px-2 py-2 items-center measure md:max-w-lg mx-auto"
+    >
       <div class="icon aspect-square">
         <img
           src="https://raw.githubusercontent.com/UltraRaptorYT/SPIT/main/server/img/default.png"
@@ -34,7 +36,7 @@
     <div class="height flex items-stretch" id="swipe">
       <div class="drag-container left grow relative"></div>
       <div class="container md:max-w-lg flex flex-col gap-5 relative">
-        <div class="w-full h-screen" id="foodGen">
+        <div class="w-full h-screen drag-container" id="foodGen">
           <img
             src="https://geekculture.co/wp-content/uploads/2022/09/mcdonalds-singapore-pikachu-carrier-3.jpg"
             class="w-full object-cover h-full"
@@ -44,13 +46,33 @@
       <div class="drag-container right grow relative"></div>
     </div>
     <div
-      class="flex justify-between px-2 py-3 items-center measure bg-slate-200 text-3xl mt-2"
+      class="flex justify-between px-2 py-3 items-center measure bg-slate-200 text-3xl mt-2 md:max-w-lg mx-auto"
     >
-      <button><i class="fa-solid fa-arrow-rotate-left"></i></button>
-      <button><i class="fa-solid fa-xmark"></i></button>
-      <button><i class="fa-solid fa-angle-up"></i></button>
-      <button><i class="fa-solid fa-heart"></i></button>
-      <button><i class="bi bi-heart-fill"></i></button>
+      <button
+        class="icon aspect-square rounded-full border-2 border-amber-500 flex justify-center items-center"
+      >
+        <i class="fa-solid fa-arrow-rotate-left text-2xl text-amber-500"></i>
+      </button>
+      <button
+        class="icon aspect-square rounded-full border-2 border-red-700 flex justify-center items-center"
+      >
+        <i class="fa-solid fa-xmark text-red-700"></i>
+      </button>
+      <button
+        class="icon aspect-square rounded-full border-2 border-black flex justify-center items-center"
+      >
+        <i class="fa-solid fa-angle-up text-2xl text-black"></i>
+      </button>
+      <button
+        class="icon aspect-square rounded-full border-2 border-green-500 flex justify-center items-center"
+      >
+        <i class="fa-solid fa-heart text-green-500"></i>
+      </button>
+      <button
+        class="icon aspect-square rounded-full border-2 border-purple-500 flex justify-center items-center"
+      >
+        <img src="./img/shiokie.PNG" class="icon" />
+      </button>
     </div>
     <script>
       let vh = 0.01 * window.innerHeight;

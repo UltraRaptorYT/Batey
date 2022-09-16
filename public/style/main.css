@@ -233,3 +233,7 @@ footer {
   color: green;
   text-transform: uppercase;
 }
+
+.circle {
+  border: 2px solid black;
+}
