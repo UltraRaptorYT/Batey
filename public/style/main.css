@@ -167,15 +167,17 @@ label[for="pfp"] {
   );
 }
 
-<<<<<<< Updated upstream
 .icon {
   width: 40px;
+}
+
+.logo {
+  width: 50px;
 }
 
 footer {
   height: 60px;
 }
-=======
 .grad {
   background: -moz-linear-gradient(
     bottom,
@@ -196,4 +198,38 @@ footer {
     rgba(0, 0, 0, 0.01) 100%
   );
 }
->>>>>>> Stashed changes
+
+@media only screen and (max-width: 768px) {
+  .left::before,
+  .right::before {
+    display: none;
+  }
+}
+
+.left::before {
+  content: "Don't Like";
+  white-space: nowrap;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  font-size: xx-large;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bolder;
+  color: red;
+  text-transform: uppercase;
+}
+
+.right::before {
+  content: "Like";
+  font-size: xx-large;
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bolder;
+  color: green;
+  text-transform: uppercase;
+}
