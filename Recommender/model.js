@@ -1,17 +1,55 @@
-dish_attributes = {
-    'Chicken_Rice': ['Chicken', 'Rice', 'High Fat', 'High Oil','Salty','Spicy'],
-    "Yong_Tau_Foo": ['Fish', 'Vegetables', 'High Fat','Salty','Spicy','Noodles'],
-    "Hokkien_Mee": ['Noodles', 'Shellfish', 'High Fat', 'High Oil','Salty','Spicy'],
-    "Char_Kway_Tiao": ['Noodles', 'Chicken', 'Shellfish', 'High Oil','High Fat','Salty'],
-    "Kaya_Toast": ['Sweet','Vegan'],
-    "Laksa": ['Noodles', 'Fish', 'Vegetables', 'High Fat','Salty','Spicy','Lactose Intolerant'],
-}
+var foodDict = {
+    "Chicken Rice": {
+      "Hong Yu's Chick":
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+      "Kaleb's Chick":
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+    },
+    "Fried Chicken": {
+      KFC: "https://www.kfc.com.sg//Content/OnlineOrderingImages/Menu/Items/DEL_Satay_Crunch_Chicken_ALC.jpg",
+      "Texas Chicken":
+        "https://assets.grab.com/wp-content/uploads/sites/8/2019/03/12143755/Texas-Chicken-Chicken-Combo-delivery-kl-700x700.jpg",
+    },
+    Burgers: {
+      McDonald:
+        "https://b.zmtcdn.com/data/pictures/chains/0/20630/a1bb80a3bdb9968b0b937458ae6acfa8.jpg?fit=around|300:273",
+      KFC: "https://cdn.discordapp.com/attachments/1018710809360220221/1020012348183949362/unknown.png",
+    },
+    'Yong Tau Foo':{
+      'Yong_Tau_Foo':
+        'https://ewr1.vultrobjects.com/hawkerpedia/article/20210512/4bHCDY9p0D9p_20210408_111319.jpg',
+    },
+    'Hokkien Mee':{
+      'RandomHokkienMee': 'https://sethlui.com/wp-content/uploads/2021/10/Best-Hokkien-Mee-Ah-Hock.jpg',
+    },
+    "Char Kway Tiao":{
+      "RandomChar_Kway_Tiao": 'https://noobcook.com/wp-content/uploads/2014/03/charkwayteow2.jpg'
+    },
+    "Laksa":{
+      "RandomLaksa":'https://rasamalaysia.com/w p-content/uploads/2011/07/curry-laksa-thumb.jpg'
+    },
+    "Kaya Toast":{
+      'RandomKayaToast': "https://www.thebestsingapore.com/wp-content/uploads/2014/11/best-kaya-toast-596x480.jpg"
+    }
+  };
 
+dish_attributes = {
+    'Chicken Rice': ['Chicken', 'Rice', 'High Fat', 'High Oil','Salty','Spicy'],
+    "Yong Tau Foo": ['Fish', 'Vegetables', 'High Fat','Salty','Spicy','Noodles'],
+    "Hokkien Mee": ['Noodles','Pork', 'Shellfish', 'High Fat', 'High Oil','Salty','Spicy'],
+    "Char Kway Tiao": ['Noodles', 'Chicken', 'Shellfish', 'High Oil','High Fat','Salty'],
+    "Kaya Toast": ['Sweet','Vegan','Starchy'],
+    "Laksa": ['Noodles', 'Fish', 'Vegetables', 'High Fat','Salty','Spicy','Lactose Intolerant'],
+    'Fried Chicken': ['Chicken', 'High Fat', 'High Oil','Salty'],
+    'Burgers': ['Chicken','Beef', 'High Fat', 'High Oil','Salty','Starchy'],
+    'Pizza': ['Chicken','Beef','Pork','High Fat', 'High Oil','Salty','Starchy'],
+}
 attributes = {
     'Sweet' : 0,
     'Spicy' : 0,
     'Salty' : 0,
     'Chicken' : 0,
+    'Pork': 0,
     'Beef' : 0,
     'Halal' : 0,
     'Fish' : 0,
@@ -24,30 +62,48 @@ attributes = {
     'Noodles' : 0,
     'Vegan' : 0,
     'Vegetables' : 0,
+    'Starchy' : 0,
 }
 
 dish_score = {
-    'Chicken_Rice': 0,
-    "Yong_Tau_Foo": 0,
-    "Hokkien_Mee": 0,
-    "Char_Kway_Tiao": 0,
-    "Kaya_Toast": 0,
+    'Chicken Rice': 0,
+    "Yong Tau Foo": 0,
+    "Hokkien Mee": 0,
+    "Char Kway Tiao": 0,
+    "Kaya Toast": 0,
+    "Laksa": 0,
+    'Fried Chicken': 0,
+    'Burgers': 0,
+    'Pizza': 0,
 }
 
 function getDishAttributes(dish){
     return dish_attributes[dish];
 }
 
-function updateAttributes(dish){
-    dish_attributes[dish].forEach(function(attribute){
-        attributes[attribute] += 1;
-    });
+function updateAttributes(dish,type){
+
+    if (type=="like"){
+        dish_attributes[dish].forEach(function(attribute){
+            attributes[attribute] += 1;
+        });
+    }
+    else if (type=="dislike") {
+        dish_attributes[dish].forEach(function(attribute){
+            attributes[attribute] -= 2;
+        });
+    }
+    else{
+        console.log('Error: Invalid type');
+    }
 }
+
 function resetAttributes(){
     for (var key in attributes) {
         attributes[key] = 0;
     }
 }
+
 function viewAttributes(){
     // Function returns values of attributes in one array
     var attribute_values = [];
@@ -67,12 +123,29 @@ function calculateDishScore(){
         dish_score[dish] = score/dish_attributes[dish].length;
         console.log(dish + " score: " + dish_score[dish]);
     }
+    return dish_score;
 }
 
-updateAttributes('Chicken_Rice');
-updateAttributes('Char_Kway_Tiao')
-console.log(getDishAttributes("Chicken_Rice"))
-console.log(viewAttributes())
+updateAttributes('Chicken Rice','dislike');
+updateAttributes('Yong Tau Foo','dislike');
 calculateDishScore()
-resetAttributes()
-console.log(viewAttributes())
+// function main(n,No_dishes_to_recommend){
+//     // n is the number of dishes randomly selected before algo is used to selct the next dish
+//     for (var i = 1; i <= No_dishes_to_recommend; i++){
+//         if (i < n) {
+//             // random
+//             var dish = Object.keys(dish_attributes)[Math.floor(Math.random() * Object.keys(dish_attributes).length)];
+//             console.log('Dish ' + i + ': ' + dish);
+//             updateAttributes(dish);
+//         }
+//         else {
+//             dish_score_ranking = calculateDishScore();
+//             // Sort dish_score_ranking in descending order
+//             dish_score_ranking = Object.keys(dish_score_ranking).sort(function(a,b){return dish_score_ranking[b]-dish_score_ranking[a]})
+//             console.log('Dish ' + i + ': ' + dish);
+//             updateAttributes(dish);
+//         }
+//     }
+// }
+
+// main(3,6);
