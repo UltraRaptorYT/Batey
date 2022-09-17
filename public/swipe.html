@@ -19,7 +19,7 @@
 
   <body>
     <div
-      class="flex justify-between px-2 py-2 items-center measure md:max-w-lg mx-auto"
+      class="flex justify-between px-4 py-2 items-center measure md:max-w-lg mx-auto"
     >
       <div class="icon aspect-square">
         <img
@@ -34,24 +34,20 @@
       <div class="icon aspect-square">&nbsp;</div>
     </div>
     <div class="height flex items-stretch" id="swipe">
-      <div class="drag-container left grow relative"></div>
+      <div class="drag-container left grow relative" id="dont"></div>
       <div class="container md:max-w-lg flex flex-col gap-5 relative">
-        <div class="w-full h-screen drag-container" id="foodGen">
-          <img
-            src="https://geekculture.co/wp-content/uploads/2022/09/mcdonalds-singapore-pikachu-carrier-3.jpg"
-            class="w-full object-cover h-full"
-          />
-        </div>
+        <div class="w-full h-screen relative" id="foodGen"></div>
       </div>
-      <div class="drag-container right grow relative"></div>
+      <div class="drag-container right grow relative" id="like"></div>
     </div>
     <div
-      class="flex justify-between px-2 py-3 items-center measure bg-slate-200 text-3xl mt-2 md:max-w-lg mx-auto"
+      class="flex justify-between px-4 py-3 items-center measure bg-slate-200 text-3xl mt-2 md:max-w-lg mx-auto"
     >
       <button
         class="icon aspect-square rounded-full border-2 border-amber-500 flex justify-center items-center"
+        onclick="rewind()"
       >
-        <i class="fa-solid fa-arrow-rotate-left text-2xl text-amber-500"></i>
+        <i class="fa-solid fa-arrow-rotate-left text-xl text-amber-500"></i>
       </button>
       <button
         class="icon aspect-square rounded-full border-2 border-red-700 flex justify-center items-center"
@@ -61,24 +57,29 @@
       <button
         class="icon aspect-square rounded-full border-2 border-black flex justify-center items-center"
       >
-        <i class="fa-solid fa-angle-up text-2xl text-black"></i>
+        <i class="fa-solid fa-angle-up text-xl text-black pb-1"></i>
       </button>
       <button
         class="icon aspect-square rounded-full border-2 border-green-500 flex justify-center items-center"
       >
         <i class="fa-solid fa-heart text-green-500"></i>
       </button>
-      <button
+      <a
+        href="./dashboard.html"
         class="icon aspect-square rounded-full border-2 border-purple-500 flex justify-center items-center"
       >
-        <img src="./img/shiokie.PNG" class="icon" />
-      </button>
+        <img src="./img/shiokie.png" class="icon" />
+      </a>
     </div>
     <script>
       let vh = 0.01 * window.innerHeight;
-      console.log(vh),
-        document.documentElement.style.setProperty("--vh", vh + "px");
+      document.documentElement.style.setProperty("--vh", vh + "px");
     </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
     <script>
       function getAbsoluteHeight(el) {
         // Get the DOM Node if you pass in a string
@@ -94,7 +95,6 @@
       for (var ele of document.querySelectorAll(".measure")) {
         heightSum += getAbsoluteHeight(ele);
       }
-      console.log(heightSum);
       document.getElementById("swipe").style.height =
         getAbsoluteHeight(document.getElementById("swipe")) - heightSum + `px`;
     </script>
@@ -104,7 +104,7 @@
           "Hong Yu's Chick":
             "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
           "Kaleb's Chick":
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+            "https://d1e1vgxjd1htwd.cloudfront.net/-/media/recipe-hainanese-chicken-rice.jpg?h=969&la=en&w=1250&hash=2AE75B9674FDE26B8978059DA848F8A888E2845C",
         },
         "Fried Chicken": {
           KFC: "https://www.kfc.com.sg//Content/OnlineOrderingImages/Menu/Items/DEL_Satay_Crunch_Chicken_ALC.jpg",
@@ -142,48 +142,107 @@
 
       function getImage() {
         let foodArr = [];
+        var brandIndex;
         for (let [i, food] of Object.entries(foodDict)) {
-          foodArr.push(
-            Object.values(food)[genNumber(0, Object.entries(food).length)]
-          );
+          var brandIndex = genNumber(0, Object.entries(food).length);
+          foodArr.push([
+            Object.keys(food)[brandIndex],
+            Object.values(food)[brandIndex],
+          ]);
         }
-        return foodArr[genNumber(0, foodArr.length)];
+        let foodIndex = genNumber(0, foodArr.length);
+        return [
+          foodArr[foodIndex][1], // food image
+          Object.keys(foodDict)[foodIndex], // food name
+          foodArr[foodIndex][0], // food brand
+        ];
       }
 
-      var historyArr = [];
+      function arraysEqual(a, b) {
+        return JSON.stringify(a) === JSON.stringify(b);
+      }
 
-      function populate(historyArr, length) {
+      var historyArr = [getImage()];
+
+      function populate(historyArr) {
+        var currentLength = 1;
+        document.getElementById("foodGen").innerHTML = `
+          <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
+            <img src="${historyArr[0][0]}" class="w-full object-cover h-full" data-brand="${historyArr[0][2]}" />
+            <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[0][1]}</h2>
+          </div>
+          `;
         do {
-          for (let i = length; i >= 0; i--) {
-            if (!historyArr.includes(food)) {
-              historyArr.push(food);
-            }
+          historyArr[currentLength] = getImage();
+          if (
+            historyArr[currentLength][1] !== historyArr[currentLength - 1][1]
+          ) {
+            break;
           }
-          historyArr.push(getImage());
-          for (let i = 0; i < historyArr.length; i++) {
-            if (historyArr[i] == historyArr[historyArr.length - 1]) {
-              historyArr.pop();
-            }
-            historyArr.push(getImage());
-          }
-        } while (historyArr.length <= length);
+        } while (
+          historyArr[currentLength][1] === historyArr[currentLength - 1][1]
+        );
+        $("#foodGen").prepend(`
+          <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
+            <img src="${historyArr[currentLength][0]}" class="w-full object-cover h-full" data-brand="${historyArr[currentLength][2]}" />
+            <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[currentLength][1]}</h2>
+          </div>
+          `);
+        historyArr.shift();
         return historyArr;
       }
-      // console.log(populate(historyArr, 2))
+      populate(historyArr);
+    </script>
+    <!--Functions-->
+    <script>
+      var dragArr = [];
 
-      document.getElementById("foodGen").innerHTML = `    
-      <div class="drag-item w-full object-cover h-full relative z-100" draggable="true">
-        <img src="${getImage()}" class="w-full object-cover h-full" />
-        <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">Chicken Rice</h2>
-      </div>
-      
-      <!--<div class="drag-item w-full object-cover h-full relative z-0 absolute" draggable="true">
-        <img src="${getImage()}" class="w-full object-cover h-full" />
-        <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">Chicken Rice</h2>
-      </div>-->`;
+      function rewind() {
+        if (dragArr.length <= 0) {
+          return;
+        }
+        var currentLength = dragArr.length - 1;
+        $("#foodGen").append(`
+          <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
+            <img src="${dragArr[currentLength][0]}" class="w-full object-cover h-full" data-brand="${dragArr[currentLength][2]}" />
+            <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${dragArr[currentLength][1]}</h2>
+          </div>
+          `);
+        dragArr.pop();
+        var listItems = document.querySelectorAll(".drag-item");
+        [].forEach.call(listItems, function (item) {
+          addEventsDragAndDrop(item);
+        });
+      }
+
+      function checkDrop() {
+        var dragContainer = document.querySelectorAll(".drag-container");
+        for (var container of dragContainer) {
+          if (container.children.length > 0) {
+            console.log(container.id);
+            dragArr.push([
+              container.children[0].querySelector("img").src, // food image
+              container.children[0].querySelector("h2").innerHTML, // food name
+              container.children[0].querySelector("img").dataset.brand, // food brand
+            ]);
+            switch (container.id) {
+              case "dont":
+                dontLikeFunc();
+              case "like":
+                likeFunc();
+            }
+            container.innerHTML = "";
+          }
+        }
+        console.log(historyArr);
+        console.log(dragArr);
+        populate(historyArr);
+      }
+
+      function dontLikeFunc() {}
+      function likeFunc() {}
     </script>
     <!--Dragging-->
-
     <script>
       function dragStart(e) {
         dragSrcEl = this;
@@ -215,7 +274,7 @@
         // [].forEach.call(generator, function (item) {
         //   generateMedicine(item);
         // });
-
+        checkDrop(historyArr);
         var listItems = document.querySelectorAll(".drag-item");
         [].forEach.call(listItems, function (item) {
           addEventsDragAndDrop(item);
@@ -308,7 +367,7 @@
             // [].forEach.call(generator, function (item) {
             //   generateMedicine(item);
             // });
-
+            checkDrop(historyArr);
             var listItems = document.querySelectorAll(".drag-item");
             [].forEach.call(listItems, function (item) {
               addEventsDragAndDrop(item);

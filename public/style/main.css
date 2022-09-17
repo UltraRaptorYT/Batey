@@ -122,7 +122,8 @@ label[for="pfp"] {
   top: -5px;
   font-size: 2rem;
 }
-.drag-container {
+.drag-container.left,
+.drag-container.right {
   width: 20px;
 }
 
