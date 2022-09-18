@@ -37,6 +37,10 @@ body {
   height: calc(var(--vh, 1vh) * 100);
 }
 
+.mainBG {
+  background: var(--background-color);
+}
+
 .accent-bg {
   background: var(--accent-color);
 }
@@ -45,10 +49,6 @@ body {
   color: var(--accent-color);
 }
 
-.text-xxs {
-  font-size: 0.5rem;
-  line-height: 0.75rem;
-}
 
 [class^="bi-"]::before,
 [class*=" bi-"]::before {
@@ -171,9 +171,16 @@ label[for="pfp"] {
 .icon {
   width: 40px;
 }
+footer .icon {
+  width: 30px;
+}
 
 .logo {
   width: 50px;
+}
+
+header {
+  height: 66px;
 }
 
 footer {
@@ -237,4 +244,45 @@ footer {
 
 .circle {
   border: 2px solid black;
+}
+
+/* Modal */
+
+.modal {
+  z-index: 1072;
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.modal-backdrop.show {
+  opacity: 50%;
+}
+
+.modal.fade .modal-dialog {
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  -webkit-transform: translate(0, -50px);
+  transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+  -webkit-transform: none;
+  transform: none;
 }

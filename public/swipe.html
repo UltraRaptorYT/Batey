@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shiok!</title>
+    <link rel="shortcut icon" href="./img/shiokie.png" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
@@ -18,7 +19,7 @@
   </head>
 
   <body>
-    <div
+    <header
       class="flex justify-between px-4 py-2 items-center measure md:max-w-lg mx-auto"
     >
       <div class="icon aspect-square">
@@ -32,7 +33,7 @@
         <img src="./img/logo.png" alt="logo" class="w-full h-full" />
       </div>
       <div class="icon aspect-square">&nbsp;</div>
-    </div>
+    </header>
     <div class="height flex items-stretch" id="swipe">
       <div class="drag-container left grow relative" id="dont"></div>
       <div class="container md:max-w-lg flex flex-col gap-5 relative">
@@ -175,7 +176,7 @@
         var currentLength = 1;
         document.getElementById("foodGen").innerHTML = `
           <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
-            <img src="${historyArr[0][0]}" class="w-full object-cover h-full" data-brand="${historyArr[0][2]}" />
+            <img src="${historyArr[0][0]}" class="w-full object-cover h-full bg-black" data-brand="${historyArr[0][2]}" />
             <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[0][1]}</h2>
           </div>
           `;
@@ -191,11 +192,15 @@
         );
         $("#foodGen").prepend(`
           <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
-            <img src="${historyArr[currentLength][0]}" class="w-full object-cover h-full" data-brand="${historyArr[currentLength][2]}" />
+            <img src="${historyArr[currentLength][0]}" class="w-full object-cover h-full bg-black" data-brand="${historyArr[currentLength][2]}" />
             <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[currentLength][1]}</h2>
           </div>
           `);
         historyArr.shift();
+        var listItems = document.querySelectorAll(".drag-item");
+        [].forEach.call(listItems, function (item) {
+          addEventsDragAndDrop(item);
+        });
         return historyArr;
       }
       populate(historyArr);
@@ -211,7 +216,7 @@
         var currentLength = dragArr.length - 1;
         $("#foodGen").append(`
           <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
-            <img src="${dragArr[currentLength][0]}" class="w-full object-cover h-full" data-brand="${dragArr[currentLength][2]}" />
+            <!--<img src="${dragArr[currentLength][0]}" class="w-full object-cover h-full bg-black" data-brand="${dragArr[currentLength][2]}" />-->
             <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${dragArr[currentLength][1]}</h2>
           </div>
           `);
@@ -262,7 +267,7 @@
         checkDrop();
       }
       function moreInfo() {
-        console.log("Cry not working")
+        console.log("Cry not working");
       }
     </script>
     <!--Search-->
