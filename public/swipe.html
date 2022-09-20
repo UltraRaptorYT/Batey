@@ -430,32 +430,31 @@
 
       var historyArr = [getImage()];
 
-      // dish_history length > 10 -> delete first element
       
-      function getDish() {
-        var dish = getImage();
-        while (arraysEqual(dish, historyArr[historyArr.length - 1])) {
-          dish = getImage();
+      // function check if the food is in the historyArr
+      function checkHistory(food) {
+        for (let i = 0; i < historyArr.length; i++) {
+          if (arraysEqual(food, historyArr[i])) {
+            return true;
+          }
         }
-        historyArr.push(dish);
-        if (historyArr.length > 10) {
-          historyArr.shift();
-        }
-        return dish;
+        return false;
       }
 
+
       function populate(historyArr) {
-        var currentLength = 1;
+        var currentLength = historyArr.length;
         document.getElementById("foodGen").innerHTML = `
           <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
-            <img src="${historyArr[0][0]}" class="w-full object-cover h-full bg-black" data-brand="${historyArr[0][2]}" />
-            <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[0][1]}</h2>
+            <img src="${historyArr[currentLength-1][0]}" class="w-full object-cover h-full bg-black" data-brand="${historyArr[currentLength-1][2]}" />
+            <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[currentLength-1][1]}</h2>
           </div>
           `;
         do {
           historyArr[currentLength] = getImage();
           if (
-            historyArr[currentLength][1] !== historyArr[currentLength - 1][1]
+            checkHistory(historyArr[currentLength])
+            // historyArr[currentLength][1] !== historyArr[currentLength - 1][1]
           ){
             console.log('Same')
               break;
@@ -465,7 +464,7 @@
           // historyArr.some(
           //   (item) => item[1] !== historyArr[currentLength][1]
           // ),
-          historyArr[currentLength][1] === historyArr[currentLength - 1][1] 
+          !checkHistory(historyArr[currentLength])
         );
         $("#foodGen").prepend(`
           <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
@@ -473,7 +472,11 @@
             <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${historyArr[currentLength][1]}</h2>
           </div>
           `);
-        historyArr.shift();
+        
+        if (historyArr.length > 10) {
+          historyArr.shift();
+        }
+        // historyArr.shift();
         var listItems = document.querySelectorAll(".drag-item");
         [].forEach.call(listItems, function (item) {
           addEventsDragAndDrop(item);

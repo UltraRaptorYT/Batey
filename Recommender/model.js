@@ -1,19 +1,32 @@
 var foodDict = {
+    // Index 0 Photo, Index 1 Attributes, Index 2 Score
     "Chicken Rice": {
-      "Hong Yu's Chick":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
-      "Kaleb's Chick":
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+      "Photo": {
+        "Hong Yu's Chick":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+        "Kaleb's Chick":
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Hainanese_Chicken_Rice.jpg/640px-Hainanese_Chicken_Rice.jpg",
+        },
+      "Attributes": ['Chicken', 'Rice', 'High Fat', 'High Oil','Salty','Spicy','Chinese'],
+      "Score": 0
     },
     "Fried Chicken": {
+      "Photo": {
       KFC: "https://www.kfc.com.sg//Content/OnlineOrderingImages/Menu/Items/DEL_Satay_Crunch_Chicken_ALC.jpg",
       "Texas Chicken":
         "https://assets.grab.com/wp-content/uploads/sites/8/2019/03/12143755/Texas-Chicken-Chicken-Combo-delivery-kl-700x700.jpg",
+      },
+      "Attributes": ['Chicken', 'High Fat', 'High Oil','Salty','Western'],
+      "Score": 0
     },
     Burgers: {
+      "Photo": {
       McDonald:
         "https://b.zmtcdn.com/data/pictures/chains/0/20630/a1bb80a3bdb9968b0b937458ae6acfa8.jpg?fit=around|300:273",
       KFC: "https://cdn.discordapp.com/attachments/1018710809360220221/1020012348183949362/unknown.png",
+      },
+      "Attributes": ['Chicken','Beef', 'High Fat', 'High Oil','Salty','Starchy','Western'],
+      "Score": 0
     },
     'Yong Tau Foo':{
       'Yong_Tau_Foo':
@@ -44,6 +57,7 @@ dish_attributes = {
     'Burgers': ['Chicken','Beef', 'High Fat', 'High Oil','Salty','Starchy','Western'],
     // 'Pizza': ['Chicken','Beef','Pork','High Fat', 'High Oil','Salty','Starchy','Western'],
 }
+
 attributes = {
     'Sweet' : 0,
     'Spicy' : 0,
