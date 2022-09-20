@@ -34,15 +34,15 @@ var foodDict = {
   };
 
 dish_attributes = {
-    'Chicken Rice': ['Chicken', 'Rice', 'High Fat', 'High Oil','Salty','Spicy'],
-    "Yong Tau Foo": ['Fish', 'Vegetables', 'High Fat','Salty','Spicy','Noodles'],
-    "Hokkien Mee": ['Noodles','Pork', 'Shellfish', 'High Fat', 'High Oil','Salty','Spicy'],
-    "Char Kway Tiao": ['Noodles', 'Chicken', 'Shellfish', 'High Oil','High Fat','Salty'],
-    "Kaya Toast": ['Sweet','Vegan','Starchy'],
-    "Laksa": ['Noodles', 'Fish', 'Vegetables', 'High Fat','Salty','Spicy','Lactose Intolerant'],
-    'Fried Chicken': ['Chicken', 'High Fat', 'High Oil','Salty'],
-    'Burgers': ['Chicken','Beef', 'High Fat', 'High Oil','Salty','Starchy'],
-    'Pizza': ['Chicken','Beef','Pork','High Fat', 'High Oil','Salty','Starchy'],
+    'Chicken Rice': ['Chicken', 'Rice', 'High Fat', 'High Oil','Salty','Spicy','Chinese'],
+    "Yong Tau Foo": ['Fish', 'Vegetables', 'High Fat','Salty','Spicy','Noodles','Chinese'],
+    "Hokkien Mee": ['Noodles','Pork', 'Shellfish', 'High Fat', 'High Oil','Salty','Spicy','Chinese'],
+    "Char Kway Tiao": ['Noodles', 'Chicken', 'Shellfish', 'High Oil','High Fat','Salty','Chinese'],
+    "Kaya Toast": ['Sweet','Vegan','Starchy','Local'],
+    "Laksa": ['Noodles', 'Fish', 'Vegetables', 'High Fat','Salty','Spicy','Lactose Intolerant','Chinese'],
+    'Fried Chicken': ['Chicken', 'High Fat', 'High Oil','Salty','Western'],
+    'Burgers': ['Chicken','Beef', 'High Fat', 'High Oil','Salty','Starchy','Western'],
+    // 'Pizza': ['Chicken','Beef','Pork','High Fat', 'High Oil','Salty','Starchy','Western'],
 }
 attributes = {
     'Sweet' : 0,
@@ -63,6 +63,9 @@ attributes = {
     'Vegan' : 0,
     'Vegetables' : 0,
     'Starchy' : 0,
+    'Local' : 0,
+    'Western' : 0,
+    'Chinese' : 0,
 }
 
 dish_score = {
@@ -125,10 +128,24 @@ function calculateDishScore(){
     }
     return dish_score;
 }
+function predictNextDish(dish_score){
+    // Function returns the dish with the highest score
+    var max = -100;
+    var max_dish = "";
+    for (var dish in dish_score){
+        console.log(dish + " score: " + dish_score[dish]);
+        if (dish_score[dish] > max){
+            max = dish_score[dish];
+            max_dish = dish;
+        }
+    }
+    console.log(max_dish);
+}
 
-updateAttributes('Chicken Rice','dislike');
+updateAttributes('Chicken Rice','like');
 updateAttributes('Yong Tau Foo','dislike');
-calculateDishScore()
+dishscore = calculateDishScore()
+console.log(predictNextDish(dish_score))
 // function main(n,No_dishes_to_recommend){
 //     // n is the number of dishes randomly selected before algo is used to selct the next dish
 //     for (var i = 1; i <= No_dishes_to_recommend; i++){
@@ -149,3 +166,6 @@ calculateDishScore()
 // }
 
 // main(3,6);
+
+// print length of foodDict
+console.log(Object.keys(foodDict).length);
