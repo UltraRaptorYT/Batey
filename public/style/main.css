@@ -49,7 +49,6 @@ body {
   color: var(--accent-color);
 }
 
-
 [class^="bi-"]::before,
 [class*=" bi-"]::before {
   line-height: normal;
@@ -216,7 +215,6 @@ footer {
 
 .left::before {
   content: "Don't Like";
-  white-space: nowrap;
   text-align: center;
   position: absolute;
   top: 50%;
@@ -285,4 +283,40 @@ footer {
 .modal.show .modal-dialog {
   -webkit-transform: none;
   transform: none;
+}
+
+.scan-region-highlight {
+  z-index: 99;
+}
+
+.marquee {
+  --gap: 1rem;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+}
+
+.marquee__content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--gap);
+  min-width: 100%;
+  animation: scroll 7.5s linear infinite;
+}
+
+.marquee__item {
+  aspect-ratio: 1;
+  width: 50px;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
 }

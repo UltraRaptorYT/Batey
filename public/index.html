@@ -22,19 +22,17 @@
       >
         <div id="logo">
           <img
-            src="https://media.discordapp.net/attachments/1018710809360220221/1019293185622691890/Shiok.png"
+            src="./img/logo.png"
             class="w-full"
           />
         </div>
-        <h1 class="text-3xl md:text-4xl font-black whitespace-nowrap pt-3">
-          Be Shiok Today!
-        </h1>
         <div
           class="flex flex-col w-full md:w-3/4 lg:w-full items-center justify-center mx-auto gap-3 py-3"
         >
           <button
+            type="button"
+            class="text-white buttonColor w-full rounded-full p-2 text-center focus:outline-blue-500 focus:outline-2 focus:outline text-xl"
             id="login"
-            class="font-bold rounded-full bg-white px-3 py-1 w-full text-lg"
           >
             <div class="flex gap-2 items-center justify-center">
               <i class="bi bi-google text-2xl"></i>
@@ -42,16 +40,18 @@
             </div>
           </button>
           <button
+            type="button"
+            class="text-white buttonColor w-full rounded-full p-2 text-center focus:outline-blue-500 focus:outline-2 focus:outline text-xl"
             id="guest"
-            class="font-bold rounded-full bg-white px-3 py-1 w-full text-lg"
           >
             <div class="flex gap-2 items-center justify-center">
               <p>Continue as guest</p>
             </div>
           </button>
           <button
+            type="button"
+            class="text-white buttonColor w-full rounded-full p-2 text-center focus:outline-blue-500 focus:outline-2 focus:outline text-xl"
             id="logOut"
-            class="font-bold rounded-full bg-white px-3 py-1 w-full text-lg"
           >
             <div class="flex gap-2 items-center justify-center">
               <p>Sign Out</p>
@@ -103,7 +103,7 @@
       if (localStorage.getItem("uid") && localStorage.getItem("userObj")) {
         login.classList.add("hidden");
         guest.classList.add("hidden");
-        window.location.href = "./dashboard.html";
+        window.location.href = "./swipe.html";
       } else {
         logOut.classList.add("hidden");
       }

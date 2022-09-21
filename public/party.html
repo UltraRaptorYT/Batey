@@ -11,6 +11,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/825a35d965.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="./style/main.css" />
     <script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
   </head>
@@ -28,7 +32,7 @@
       id="body"
     >
       <div
-        class="mainBG h-full rounded-tl-[25px] rounded-tr-[25px] py-4 px-3"
+        class="mainBG h-full rounded-tl-[25px] rounded-tr-[25px] p-4"
         id="content"
       >
         <div class="flex flex-col gap-3 h-full overflow-y-auto">
@@ -123,7 +127,7 @@
         role="document"
       >
         <div
-          class="relative flex flex-col w-4/5 mx-auto pointer-events-auto bg-white border border-gray-300 rounded-lg"
+          class="relative flex flex-col mx-auto pointer-events-auto bg-white border border-gray-300 rounded-lg"
         >
           <div
             class="flex items-start justify-end p-4 border-gray-300 rounded-t"
@@ -133,80 +137,83 @@
             </button>
           </div>
           <div class="relative flex px-4 flex-col pb-4 gap-2">
-            <!--sas-->
-            <h1>Scan from WebCam:</h1>
             <div id="video-container">
               <video id="qr-video"></video>
             </div>
-            <div>
-              <label>
-                Highlight Style
-                <select id="scan-region-highlight-style-select">
-                  <option value="default-style">Default style</option>
-                  <option value="example-style-1">
-                    Example custom style 1
-                  </option>
-                  <option value="example-style-2">
-                    Example custom style 2
-                  </option>
-                </select>
-              </label>
-              <label>
-                <input id="show-scan-region" type="checkbox" />
-                Show scan region canvas
-              </label>
-            </div>
-            <div>
-              <select id="inversion-mode-select">
-                <option value="original">
-                  Scan original (dark QR code on bright background)
-                </option>
-                <option value="invert">
-                  Scan with inverted colors (bright QR code on dark background)
-                </option>
-                <option value="both">Scan both</option>
-              </select>
-              <br />
-            </div>
-            <b>Device has camera: </b>
-            <span id="cam-has-camera"></span>
-            <br />
-            <div>
-              <b>Preferred camera:</b>
-              <select id="cam-list">
-                <option value="environment" selected>
-                  Environment Facing (default)
-                </option>
-                <option value="user">User Facing</option>
-              </select>
-            </div>
-            <b>Camera has flash: </b>
-            <span id="cam-has-flash"></span>
-            <div>
-              <button id="flash-toggle">
-                📸 Flash: <span id="flash-state">off</span>
+            <div class="flex gap-1">
+              <input
+                class="w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline border-2"
+                type="text"
+                placeholder="Party Code"
+                id="code"
+                required
+              />
+              <button
+                class="button border-2 rounded-full aspect-square w-1/6"
+                id="paste"
+              >
+                <i class="fa-regular fa-paste"></i>
               </button>
             </div>
-            <br />
-            <b>Detected QR code: </b>
-            <span id="cam-qr-result">None</span>
-            <br />
-            <b>Last detected at: </b>
-            <span id="cam-qr-result-timestamp"></span>
-            <br />
-            <button id="start-button">Start</button>
-            <button id="stop-button">Stop</button>
-            <hr />
-
-            <h1>Scan from File:</h1>
-            <input type="file" id="file-selector" />
-            <b>Detected QR code: </b>
-            <span id="file-qr-result">None</span>
-            <!--sas-->
+            <button
+              type="button"
+              class="text-white buttonColor w-full rounded-full p-2 text-center focus:outline-blue-500 focus:outline-2 focus:outline text-lg"
+              id="joinParty"
+            >
+              Join Party
+            </button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div
+      class="modal hidden fixed top-0 left-0 w-full h-full outline-none fade"
+      id="qr1Modal"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div
+        class="modal-dialog relative w-auto pointer-events-none max-w-lg my-36 mx-auto px-4 sm:px-0"
+        role="document"
+      >
+        <div
+          class="relative flex flex-col w-4/5 mx-auto pointer-events-auto bg-white border border-gray-300 rounded-lg"
+        >
+          <div
+            class="flex items-start justify-end p-4 border-gray-300 rounded-t"
+          >
+            <h5
+              class="mb-0 text-lg leading-normal mx-auto font-bold"
+              id="partyCode"
+            >
+              Party Code:&nbsp;<span></span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="relative flex px-4 flex-col pb-4 gap-2">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://shiok.web.app/party"
+              alt="qrCode"
+              id="qrCode"
+              class="w-5/6 mx-auto p-2"
+            />
+            <button
+              type="button"
+              id="copyToClip"
+              class="text-white buttonColor w-full rounded-full py-2 text-center flex gap-2 justify-center px-3 focus:outline-blue-500 focus:outline-2 focus:outline text-md"
+            >
+              <i class="bi bi-share"></i>
+              <p>Share with Friends</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <footer
       class="px-2 py-3 w-full md:max-w-lg mx-auto bg-slate-200 fixed md:left-0.5 md:right-0.5 bottom-0 rounded-tl-[25px] rounded-tr-[25px] flex gap-2 justify-evenly measure"
     >
@@ -372,7 +379,7 @@
               onclick="window.location.href='./party.html'"
               class="text-white buttonColor w-full rounded-full p-2 text-center focus:outline-blue-500 focus:outline-2 focus:outline text-xl"
             >
-              End Session
+              Leave Party
             </button>
         </div>
           `;
@@ -452,130 +459,50 @@
 
       const video = document.getElementById("qr-video");
       const videoContainer = document.getElementById("video-container");
-      const camHasCamera = document.getElementById("cam-has-camera");
-      const camList = document.getElementById("cam-list");
-      const camHasFlash = document.getElementById("cam-has-flash");
-      const flashToggle = document.getElementById("flash-toggle");
-      const flashState = document.getElementById("flash-state");
-      const camQrResult = document.getElementById("cam-qr-result");
-      const camQrResultTimestamp = document.getElementById(
-        "cam-qr-result-timestamp"
-      );
-      const fileSelector = document.getElementById("file-selector");
-      const fileQrResult = document.getElementById("file-qr-result");
 
-      function setResult(label, result) {
+      function setResult(result) {
         console.log(result.data);
-        label.textContent = result.data;
-        camQrResultTimestamp.textContent = new Date().toString();
-        label.style.color = "teal";
-        clearTimeout(label.highlightTimeout);
-        label.highlightTimeout = setTimeout(
-          () => (label.style.color = "inherit"),
-          100
-        );
+        if (!result.data.includes("?roomID=")) {
+          return;
+        }
+        var partyCode = result.data.split("?roomID=")[1];
+        joinRoom(partyCode);
       }
 
       // ####### Web Cam Scanning #######
 
-      const scanner = new QrScanner(
-        video,
-        (result) => setResult(camQrResult, result),
-        {
-          onDecodeError: (error) => {
-            camQrResult.textContent = error;
-            camQrResult.style.color = "inherit";
-          },
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
-        }
-      );
-
-      const updateFlashAvailability = () => {
-        scanner.hasFlash().then((hasFlash) => {
-          camHasFlash.textContent = hasFlash;
-          flashToggle.style.display = hasFlash ? "inline-block" : "none";
-        });
-      };
-
-      scanner.start().then(() => {
-        updateFlashAvailability();
-        // List cameras after the scanner started to avoid listCamera's stream and the scanner's stream being requested
-        // at the same time which can result in listCamera's unconstrained stream also being offered to the scanner.
-        // Note that we can also start the scanner after listCameras, we just have it this way around in the demo to
-        // start the scanner earlier.
-        QrScanner.listCameras(true).then((cameras) =>
-          cameras.forEach((camera) => {
-            const option = document.createElement("option");
-            option.value = camera.id;
-            option.text = camera.label;
-            camList.add(option);
-          })
-        );
+      const scanner = new QrScanner(video, (result) => setResult(result), {
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
       });
 
-      QrScanner.hasCamera().then(
-        (hasCamera) => (camHasCamera.textContent = hasCamera)
-      );
-
-      // for debugging
       window.scanner = scanner;
 
-      document
-        .getElementById("scan-region-highlight-style-select")
-        .addEventListener("change", (e) => {
-          videoContainer.className = e.target.value;
-          scanner._updateOverlay(); // reposition the highlight because style 2 sets position: relative
-        });
-
-      document
-        .getElementById("show-scan-region")
-        .addEventListener("change", (e) => {
-          const input = e.target;
-          const label = input.parentNode;
-          label.parentNode.insertBefore(scanner.$canvas, label.nextSibling);
-          scanner.$canvas.style.display = input.checked ? "block" : "none";
-        });
-
-      document
-        .getElementById("inversion-mode-select")
-        .addEventListener("change", (event) => {
-          scanner.setInversionMode(event.target.value);
-        });
-
-      camList.addEventListener("change", (event) => {
-        scanner.setCamera(event.target.value).then(updateFlashAvailability);
-      });
-
-      flashToggle.addEventListener("click", () => {
-        scanner
-          .toggleFlash()
-          .then(
-            () => (flashState.textContent = scanner.isFlashOn() ? "on" : "off")
-          );
-      });
-
-      document.getElementById("start-button").addEventListener("click", () => {
+      $("#joinCode").on("shown.bs.modal", function (e) {
         scanner.start();
       });
 
-      document.getElementById("stop-button").addEventListener("click", () => {
-        scanner.stop();
+      document.getElementById("paste").addEventListener("click", () => {
+        console.log("hio");
+        navigator.clipboard.readText().then(
+          (cliptext) => $("#code").val(cliptext),
+          (err) => console.log(err)
+        );
       });
 
-      // ####### File Scanning #######
-
-      fileSelector.addEventListener("change", (event) => {
-        const file = fileSelector.files[0];
-        if (!file) {
-          return;
+      $("#joinParty").click(() => {
+        var partyCode = $("#code").val();
+        if (partyCode.includes("?roomID=")) {
+          partyCode = partyCode.split("?roomID=")[1];
         }
-        QrScanner.scanImage(file, { returnDetailedScanResult: true })
-          .then((result) => setResult(fileQrResult, result))
-          .catch((e) =>
-            setResult(fileQrResult, { data: e || "No QR code found." })
-          );
+        joinRoom(partyCode);
       });
+
+      function joinRoom(partyCode) {
+        window.location.href = `${
+          window.location.href.split("?")[0] + "?roomID=" + partyCode
+        }`;
+      }
     </script>
   </body>
 </html>
