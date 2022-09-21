@@ -408,6 +408,8 @@
 
       function getImage() {
         let foodArr = [];
+        console.log("This is GetImage foodArr")
+        console.log(foodArr)
         var brandIndex;
         for (let [i, food] of Object.entries(foodDict)) {
           var brandIndex = genNumber(0, Object.entries(food).length);

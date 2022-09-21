@@ -29,20 +29,40 @@ var foodDict = {
       "Score": 0
     },
     'Yong Tau Foo':{
-      'Yong_Tau_Foo':
+      "Photo": {
+      'RandomYong_Tau_Foo':
         'https://ewr1.vultrobjects.com/hawkerpedia/article/20210512/4bHCDY9p0D9p_20210408_111319.jpg',
+      },
+      "Attributes": ['Fish', 'Vegetables', 'Salty','Spicy','Noodles','Chinese'],
+      "Score": 0
     },
     'Hokkien Mee':{
+      "Photo": {
       'RandomHokkienMee': 'https://sethlui.com/wp-content/uploads/2021/10/Best-Hokkien-Mee-Ah-Hock.jpg',
+      },
+      "Attributes": ['Noodles', 'Salty','Spicy','Chinese','Shellfish'],
+      "Score": 0
     },
     "Char Kway Tiao":{
+      "Photo": {
       "RandomChar_Kway_Tiao": 'https://noobcook.com/wp-content/uploads/2014/03/charkwayteow2.jpg'
+      },
+      "Attributes": ['Noodles', 'Chicken', 'Shellfish', 'High Oil','High Fat','Salty','Chinese'],
+      "Score": 0
     },
     "Laksa":{
+      "Photo": {
       "RandomLaksa":'https://rasamalaysia.com/w p-content/uploads/2011/07/curry-laksa-thumb.jpg'
+      },
+      "Attributes": ['Noodles', 'Fish', 'Vegetables', 'High Fat','Salty','Spicy','Lactose Intolerant','Chinese'],
+      "Score": 0
     },
     "Kaya Toast":{
+      "Photo": {
       'RandomKayaToast': "https://www.thebestsingapore.com/wp-content/uploads/2014/11/best-kaya-toast-596x480.jpg"
+      },
+      "Attributes": ['Bread', 'Eggs', 'High Fat','Salty','Western'],
+      "Score": 0
     }
   };
 
