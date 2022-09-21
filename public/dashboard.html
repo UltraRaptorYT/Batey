@@ -21,7 +21,7 @@
     <header
       class="flex justify-between px-4 py-2 items-center md:max-w-lg mx-auto bg-slate-200"
     >
-      <h1 class="text-xl font-bold">Hi pokemon</h1>
+      <h1 class="text-xl font-bold">Hi <span id="name">pokemon</span></h1>
       <div class="relative">
         <img
           src="./img/acorn-colored.png"
@@ -38,7 +38,7 @@
       <div class="mainBG h-full rounded-tl-[25px] rounded-tr-[25px] p-4">
         <div class="flex flex-col gap-3 overflow-y-auto" id="content">
           <h1 class="text-lg font-bold py-2">Dashboard</h1>
-          <div class="grid px-2 grid-cols-3 grid-rows-3 gap-3 md:mx-4 lg:mx-20">
+          <div class="grid px-2 grid-cols-3 gap-3 md:mx-4 lg:mx-20">
             <a
               href="./swipe.html"
               class="bg-white w-full rounded-[25px] flex-col flex gap-2 p-2 row-span-3 col-span-2 justify-center"
@@ -82,23 +82,10 @@
           </div>
           <h1 class="text-lg font-bold py-2">Past Swipes</h1>
           <div
-            class="relative w-full flex gap-6 snap-x snap-proximity overflow-x-auto overflow-y-hidden items-stretch h-full pb-4"
+            class="relative w-full flex gap-6 snap-x snap-proximity overflow-x-auto overflow-y-hidden items-stretch h-full pb-4 justify-center"
             id="history"
           >
-            <div class="snap-center shrink-0 w-1/2 rounded-[10px] relative">
-              <img
-                class="shrink-0 shadow-xl bg-white rounded-[10px] aspect-[5/3] object-cover"
-                src="https://media.discordapp.net/attachments/910885868733087747/1021993302377103430/unknown.png"
-              />
-              <div
-                class="text-center w-full bg-slate-200 rounded-bl-[10px] rounded-br-[10px] p-1 absolute bottom-0 flex items-center justify-center gap-2 text-xs"
-              >
-                <p>Chicken Rice</p>
-                <i
-                  class="preference text-green-500 bi bi-hand-thumbs-up-fill"
-                ></i>
-              </div>
-            </div>
+            No Previous Swipes
           </div>
         </div>
       </div>
@@ -178,10 +165,92 @@
       }
       var heightSum = 0;
       for (var ele of document.querySelectorAll(".measure")) {
-        console.log(ele);
         heightSum += getAbsoluteHeight(ele);
       }
       document.getElementById("content").style.paddingBottom = heightSum + `px`;
+    </script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithRedirect,
+        getRedirectResult,
+        signInWithPopup,
+        signOut,
+        signInAnonymously,
+        setPersistence,
+        browserLocalPersistence,
+      } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyA-67sEFdlanL0T9V1mQmgIg3534LT1iFg",
+        authDomain: "shiokah.firebaseapp.com",
+        projectId: "shiokah",
+        storageBucket: "shiokah.appspot.com",
+        messagingSenderId: "946796488017",
+        appId: "1:946796488017:web:3b9770ac6f2116fdfc5f70",
+        measurementId: "G-K5MJFKJVYX",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider(app);
+      const firestore = getFirestore();
+
+      const dataRow = doc(
+        firestore,
+        `userHistory/${localStorage.getItem("uid")}`
+      );
+
+      document.getElementById("name").innerHTML =
+        JSON.parse(localStorage.getItem("userObj")).type + " !";
+
+      var dataRowValue = await getDoc(dataRow);
+      if (
+        dataRowValue.exists() &&
+        Object.entries(dataRowValue.data()).length > 0
+      ) {
+        console.log(dataRowValue.data());
+        document.getElementById("history").classList.remove(`justify-center`);
+        document.getElementById("history").innerHTML = ``;
+        for (var [foodName, dataPoints] of Object.entries(
+          dataRowValue.data()
+        )) {
+          document.getElementById("history").innerHTML += `
+          <div class="snap-center shrink-0 w-1/2 rounded-[10px] relative">
+              <img
+                class="shrink-0 shadow-xl bg-white rounded-[10px] aspect-[5/3] object-cover"
+                src="${dataPoints[0]}"
+              />
+              <div
+                class="text-center w-full bg-slate-200 rounded-bl-[10px] rounded-br-[10px] p-1 absolute bottom-0 flex items-center justify-center gap-2 text-xs"
+              >
+                <p data-brand=${dataPoints[1]}>${foodName}</p>
+                <i
+                  class="preference text-${
+                    dataPoints[2] == "like" ? "green" : "red"
+                  }-500 bi bi-hand-thumbs-${
+            dataPoints[2] == "like" ? "up" : "down"
+          }-fill"
+                ></i>
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        document.getElementById("history").innerHTML = `No Previous Swipes`;
+        document.getElementById("history").classList.add(`justify-center`);
+      }
     </script>
   </body>
 </html>

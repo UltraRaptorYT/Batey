@@ -21,10 +21,7 @@
         class="flex flex-col w-full md:w-3/4 lg:w-2/5 items-center justify-center mx-auto gap-2"
       >
         <div id="logo">
-          <img
-            src="./img/logo.png"
-            class="w-full"
-          />
+          <img src="./img/logo.png" class="w-full" />
         </div>
         <div
           class="flex flex-col w-full md:w-3/4 lg:w-full items-center justify-center mx-auto gap-3 py-3"
@@ -44,7 +41,9 @@
             class="text-white buttonColor w-full rounded-full p-2 text-center focus:outline-blue-500 focus:outline-2 focus:outline text-xl"
             id="guest"
           >
-            <div class="flex gap-2 items-center justify-center">
+            <div
+              class="flex gap-2 items-center justify-center whitespace-nowrap"
+            >
               <p>Continue as guest</p>
             </div>
           </button>
@@ -136,8 +135,10 @@
         login.classList.add("hidden");
         guest.classList.add("hidden");
         logOut.classList.remove("hidden");
-        if (firstTime) {
+        if (firstTime && type != "Guest") {
           window.location.href = "./info.html";
+        } else if (type == "Guest") {
+          window.location.href = "./swipe.html";
         } else {
           window.location.href = "./dashboard.html";
         }
