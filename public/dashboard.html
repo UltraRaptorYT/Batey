@@ -26,9 +26,9 @@
         <img
           src="./img/acorn-colored.png"
           alt="acorns"
-          class="aspect-square absolute w-2/3 -left-1/2 -top-1/4 rotate-45 translate-x-1/4"
+          class="aspect-square absolute w-[40PX] -left-1/2 -top-1/4 rotate-45 translate-x-1/4"
         />
-        <p class="rounded-full bg-orange-300/50 px-6" id="acorns">1</p>
+        <p class="rounded-full bg-orange-300/50 px-6" id="acorns">0</p>
       </div>
     </header>
     <div
@@ -41,7 +41,7 @@
           <div class="grid px-2 grid-cols-3 gap-3 md:mx-4 lg:mx-20">
             <a
               href="./swipe.html"
-              class="bg-white w-full rounded-[25px] flex-col flex gap-2 p-2 row-span-3 col-span-2 justify-center"
+              class="bg-white w-full rounded-[25px] flex-col flex gap-2 px-2 row-span-3 col-span-2 justify-center"
             >
               <img src="./img/hungry.png" alt="shiokie" class="w-full" />
               <p class="uppercase text-center font-bold text-xs">Start Swipe</p>
@@ -53,7 +53,7 @@
               <img
                 src="./img/voucher.png"
                 alt="voucher"
-                class="p-2 w-full mx-auto"
+                class="px-2 w-full mx-auto"
               />
               <p class="uppercase text-center font-bold text-xs">Voucher</p>
             </a>
@@ -64,7 +64,7 @@
               <img
                 src="./img/gachaMachine.png"
                 alt="prizes"
-                class="p-2 w-full mx-auto"
+                class="px-2 w-full mx-auto"
               />
               <p class="uppercase text-center font-bold text-xs">Prizes</p>
             </a>
@@ -75,7 +75,7 @@
               <img
                 src="./img/redemption.png"
                 alt="redemption"
-                class="p-2 w-2/3 mx-auto"
+                class="px-2 w-2/3 mx-auto"
               />
               <p class="uppercase text-center font-bold text-xs">Redemption</p>
             </a>
@@ -251,6 +251,10 @@
         document.getElementById("history").innerHTML = `No Previous Swipes`;
         document.getElementById("history").classList.add(`justify-center`);
       }
+    </script>
+    <script>
+      var acorns = localStorage.getItem("acorns") || 10;
+      document.getElementById("acorns").innerHTML = acorns;
     </script>
   </body>
 </html>

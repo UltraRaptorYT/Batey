@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
     />
-        <script
+    <script
       src="https://kit.fontawesome.com/825a35d965.js"
       crossorigin="anonymous"
     ></script>
@@ -39,7 +39,7 @@
           <div class="flex gap-4 justify-between text-lg pb-7">
             <button
               type="button"
-              class="bg-white hover:bg-slate-700 w-full rounded-full p-1 text-center font-bold text-gray-900 bg-white hover:bg-gray-100 focus:outline-blue-500 focus:outline-2 focus:outline text-sm px-5 py-2.5 mr-2 mb-2"
+              class="bg-white hover:bg-slate-700 w-full rounded-full p-1 text-center font-bold text-gray-900 bg-white hover:bg-gray-100 focus:outline-blue-500 focus:outline-2 focus:outline px-5 py-2.5 mr-2 mb-2"
               id="back"
             >
               Back
@@ -47,6 +47,7 @@
             <button
               type="submit"
               class="text-white buttonColor w-full rounded-full p-1 text-center font-bold focus:outline-blue-500 focus:outline-2 focus:outline"
+              id="next"
             >
               Next
             </button>
@@ -94,9 +95,17 @@
       var miniArr = [
         `How should we address you?`,
         `Looking great!`,
+        `Fulfilling your needs!`,
         `Personalising your experience!`,
+        `One last step!`,
       ];
-      var megaArr = [`Profile Details`, `Upload Photo`, `Allergies`];
+      var megaArr = [
+        `Profile Details`,
+        `Upload Photo`,
+        `Dietary Requirements`,
+        `Allergies`,
+        `Terms & Conditions`,
+      ];
       var progress = [
         `<div class="flex flex-col gap-7 text-lg">
                   <div class="flex gap-2 justify-between text-lg">
@@ -180,13 +189,97 @@
                   />
                 </div>
               `,
-        `<div class="flex flex-col gap-7 text-xl" id="allergy">
+        `<div class="flex flex-col gap-2 text-xl" id="requirements">
             <label class="flex items-center gap-5 checkFlex">
               <input type="checkbox" id="Halal" />
               <span class="checkmark"></span>
               <p>Halal</p>
             </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Vegan" />
+              <span class="checkmark"></span>
+              <p>Vegan</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Vegetarian" />
+              <span class="checkmark"></span>
+              <p>Vegetarian</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Lactose" />
+              <span class="checkmark"></span>
+              <p>Lactose Intolerance</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Gluten" />
+              <span class="checkmark"></span>
+              <p>Gluten Intolerance</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Beef" />
+              <span class="checkmark"></span>
+              <p>No Beef</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="None" />
+              <span class="checkmark"></span>
+              <p>None</p>
+            </label>
           </div>`,
+        `<div class="flex flex-col gap-2 text-xl" id="allergy">
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Eggs" />
+              <span class="checkmark"></span>
+              <p>Eggs</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="treeNuts" />
+              <span class="checkmark"></span>
+              <p>Tree Nuts</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Peanuts" />
+              <span class="checkmark"></span>
+              <p>Peanuts</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Prawn" />
+              <span class="checkmark"></span>
+              <p>Prawn</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Shellfish" />
+              <span class="checkmark"></span>
+              <p>Shellfish</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Wheat" />
+              <span class="checkmark"></span>
+              <p>Wheat</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Soy" />
+              <span class="checkmark"></span>
+              <p>Soy</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="Fish" />
+              <span class="checkmark"></span>
+              <p>Fish</p>
+            </label>
+            <label class="flex items-center gap-5 checkFlex">
+              <input type="checkbox" id="None" />
+              <span class="checkmark"></span>
+              <p>None</p>
+            </label>
+          </div>`,
+        `
+          <div class="bg-white p-3 text-sm aspect-[3/4] overflow-y-scroll rounded-[25px]">
+            <b>Terms & Conditions</b> <br/><br/>
+            These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and MSA (“we”, “us” or “our”), concerning your access to and use of our mobile application (the “Application”). You agree that by accessing the Application, you have read, understood, and agree to be bound by all of these Terms and Conditions Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS AND CONDITIONS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE APPLICATION AND YOU MUST DISCONTINUE USE IMMEDIATELY.<br/><br/>
+            Supplemental terms and conditions or documents that may be posted on the Application from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms and Conditions at any time and for any reason. We will alert you about any changes by updating the “Last updated” date of these Terms and Conditions and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Terms and Conditions to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms and Conditions by your continued use of the Application after the date such revised Terms are posted.
+          </div>
+          `,
       ];
       const update = async () => {
         var progressChild = document.getElementById("progress").children;
@@ -210,17 +303,18 @@
         if (form.dataset.progress - 1 == 0) {
           document.getElementById("back").classList.add("hidden");
           var result = JSON.parse(localStorage.getItem("result"));
-          document.getElementById("firstName").value =
-            result.displayName.split(" ")[0];
-          document.getElementById("lastName").value = result.displayName
-            .split(" ")
-            .slice(1, result.displayName.split(" ").length);
           const dataRow = doc(firestore, `user/${localStorage.getItem("uid")}`);
           var dataRowValue = await getDoc(dataRow);
           document.getElementById("firstName").value =
-            dataRowValue.data()["firstName"] || "";
+            result.displayName.split(" ")[0] ||
+            dataRowValue.data()["firstName"] ||
+            "";
           document.getElementById("lastName").value =
-            dataRowValue.data()["lastName"] || "";
+            result.displayName
+              .split(" ")
+              .slice(1, result.displayName.split(" ").length) ||
+            dataRowValue.data()["lastName"] ||
+            "";
           document.getElementById("age").value =
             dataRowValue.data()["age"] || "";
           document.getElementById("gender").value =
@@ -241,6 +335,9 @@
                 dataRowValue.data()["pfp"] || result.photoURL
               );
           }
+        } else if (form.dataset.progress - 1 == 4) {
+          document.getElementById("back").innerHTML = `Decline`;
+          document.getElementById("next").innerHTML = `Accept`;
         }
       };
       document.getElementById("edit").addEventListener("change", (e) => {
@@ -301,7 +398,7 @@
         form.dataset.progress = parseInt(form.dataset.progress) + 1;
         var progressChild = document.getElementById("progress").children;
         if (progressChild[form.dataset.progress - 1] == undefined) {
-          alert("done");
+          window.location.href = "./swipe.html";
           return;
         }
         if (form.dataset.progress - 1 == 1) {

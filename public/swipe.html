@@ -32,11 +32,18 @@
       <div class="logo aspect-square">
         <img src="./img/logo.png" alt="logo" class="w-full h-full" />
       </div>
-      <div class="icon aspect-square">&nbsp;</div>
+      <div class="icon aspect-square" id="shakerMove">
+        <img
+          src="./img/shaker.png"
+          alt="shaker"
+          class="w-full h-full"
+          id="shaker"
+        />
+      </div>
     </header>
     <div class="height flex items-stretch" id="swipe">
       <div class="drag-container left grow relative" id="dont"></div>
-      <div class="container md:max-w-lg flex flex-col gap-5 relative">
+      <div class="container md:max-w-lg flex flex-col gap-5 relative grow">
         <div class="w-full h-screen relative" id="foodGen"></div>
       </div>
       <div class="drag-container right grow relative" id="like"></div>
@@ -60,7 +67,7 @@
         class="icon aspect-square rounded-full border-2 border-black flex justify-center items-center relative"
         id="moreInfo"
       >
-        <i class="fa-solid fa-angle-up text-xl text-black pb-1"></i>
+        <i class="fa-solid fa-angle-up text-xl text-black"></i>
       </button>
 
       <button
@@ -496,6 +503,21 @@
     </script>
     <!--Functions-->
     <script>
+      setInterval(() => {
+        setTimeout(() => {
+          document.getElementById("shaker").classList.toggle(`shake`);
+        }, 100);
+      }, 1000);
+      document.getElementById("shakerMove").addEventListener("click", () => {
+        var image = getImage();
+        $("#foodGen").append(`
+          <div class="drag-item w-full object-cover h-full absolute z-10" draggable="true">
+            <img src="${image[0]}" class="w-full object-cover h-full bg-black" data-brand="${image[2]}" />
+            <h2 class="absolute bottom-0 text-3xl pb-2 pl-2 font-black text-white grad w-full">${image[1]}</h2>
+          </div>
+          `);
+      });
+
       var dragArr = [];
 
       function rewind() {
@@ -611,6 +633,9 @@
       const firestore = getFirestore();
 
       async function storeApp() {
+        if (!localStorage.getItem("uid")) {
+          return;
+        }
         const dataRow = doc(
           firestore,
           `userHistory/${localStorage.getItem("uid")}`
@@ -643,8 +668,18 @@
           foodImg[foodImg.length - 1].querySelector("img").dataset.brand, // food brand
           "like", // like or dont like
         ]);
+        localStorage.setItem(
+          "foodItems",
+          JSON.stringify([
+            foodImg[foodImg.length - 1].querySelector("img").src, // food image
+            foodImg[foodImg.length - 1].querySelector("h2").innerHTML, // food name
+            foodImg[foodImg.length - 1].querySelector("img").dataset.brand, // food brand
+          ])
+        );
         storeApp();
-        window.location.href = "./map.html";
+        window.location.href = `./viewFood.html?foodType=${
+          foodImg[foodImg.length - 1].querySelector("h2").innerHTML
+        }`;
       });
     </script>
   </body>

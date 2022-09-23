@@ -112,13 +112,14 @@
         var firstTime = false;
         if (!dataRowValue.exists()) {
           var data = {
-            acorns: 0,
+            acorns: 30,
             member: false,
             type: type,
             pfp:
               user.photoURL ||
               "https://raw.githubusercontent.com/UltraRaptorYT/SPIT/main/server/img/default.png",
           };
+          localStorage.setItem(`acorns`, data.acorns);
           try {
             await setDoc(dataRow, data, { merge: true });
           } catch (error) {

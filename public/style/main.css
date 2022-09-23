@@ -123,7 +123,7 @@ label[for="pfp"] {
 }
 .drag-container.left,
 .drag-container.right {
-  width: 20px;
+  width: 30px;
 }
 
 .drag-container.left {
@@ -206,13 +206,6 @@ footer {
   );
 }
 
-@media only screen and (max-width: 768px) {
-  .left::before,
-  .right::before {
-    display: none;
-  }
-}
-
 .left::before {
   content: "Don't Like";
   text-align: center;
@@ -238,6 +231,22 @@ footer {
   font-weight: bolder;
   color: green;
   text-transform: uppercase;
+}
+
+@media only screen and (max-width: 768px) {
+  .left::before {
+    rotate: -90deg;
+    font-size: large;
+    right: -50%;
+    white-space: nowrap;
+    color: black;
+  }
+  .right::before {
+    rotate: 90deg;
+    font-size: large;
+    left: -75%;
+    color: black;
+  }
 }
 
 .circle {
@@ -330,4 +339,43 @@ footer {
   z-index: 1000;
   padding: 0px 10px;
   background: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
+#shaker {
+  rotate: -45deg;
+}
+
+#shaker:hover,
+.shake {
+  animation: shake 1s linear infinite;
+}
+
+@keyframes shake {
+  0% {
+    rotate: -45deg;
+  }
+  10% {
+    rotate: -50deg;
+  }
+  20% {
+    rotate: -55deg;
+  }
+  40% {
+    rotate: -65deg;
+  }
+  50% {
+    rotate: -70deg;
+  }
+  60% {
+    rotate: -65deg;
+  }
+  80% {
+    rotate: -55deg;
+  }
+  90% {
+    rotate: -50deg;
+  }
+  100% {
+    rotate: -45deg;
+  }
 }
