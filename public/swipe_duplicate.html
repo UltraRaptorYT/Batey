@@ -14,35 +14,27 @@
 </head>
 
 <body class="overflow-hidden">
-  <header>
-    <div class="logo mx-auto">
-      <img src="./img/logo-brand.png" alt="SHIOK! Logo" />
-    </div>
-  </header>
-  <div class="flex justify-between px-4 py-2 pb-4 items-center measure mx-auto">
+  <header class="flex justify-between px-4 py-2 items-center measure md:max-w-lg mx-auto">
     <div class="icon aspect-square">
-      <img src="./img/flag-sg.png" alt="flag" class="w-full h-full object-cover rounded-full" />
+      <img src="https://raw.githubusercontent.com/UltraRaptorYT/SPIT/main/server/img/default.png" alt="profile pic"
+        class="w-full h-full object-cover rounded-full" />
     </div>
-    <div>
-      <p class="text-center text-xs font-black whitespace-normal">Spice Up</p>
-    </div>
-    <div>
-      <p class="text-center text-xs font-black whitespace-normal">For You</p>
+    <div class="logo aspect-square">
+      <img src="./img/logo-brand.png" alt="SHIOK! Logo" class="w-full h-full" />
     </div>
     <div class="icon aspect-square" id="shakerMove">
-      <img src="./img/green-heart.png" alt="shaker" class="w-full h-full" />
+      <img src="./img/shaker.png" alt="shaker" class="w-full h-full" id="shaker" />
     </div>
-  </div>
+  </header>
   <div class="height flex items-stretch" id="swipe">
-    <div class="h-5/6 drag-container left grow relative" id="dont"></div>
+    <div class="drag-container left grow relative" id="dont"></div>
     <div class="container md:max-w-lg flex flex-col gap-5 relative grow">
-      <div class="w-full h-5/6 relative" id="foodGen"></div>
+      <div class="w-full h-screen relative" id="foodGen"></div>
     </div>
-    <div class="h-5/6 drag-container right grow relative" id="like"></div>
+    <div class="drag-container right grow relative" id="like"></div>
   </div>
   <div class="flex justify-between px-3 py-0 items-center measure bg-stone-900/90 text-3xl mt-2 md:max-w-lg mx-auto">
-    <a id="dashboard" class="flex flex-col justify-center h-full aspect-square items-center text-white grayscale"
-      href="./dashboard.html">
+    <a id="dashboard" class="flex flex-col justify-center h-full aspect-square items-center text-white grayscale" href="./dashboard.html">
       <img class="aspect-square icon mx-auto" src="./img/shiokie.png" alt="" />
       <p class="text-center text-xs font-weight-bold whitespace-normal">
         Dashboard
@@ -51,7 +43,7 @@
     <a class="flex flex-col justify-center h-full aspect-square items-center text-white" href="./party.html">
       <img class="aspect-square icon mx-auto" src="./img/icons8-cheers-64.png" alt="" />
       <p class="text-center text-xs font-weight-bold whitespace-normal">
-        Party Mode
+        Party
       </p>
     </a>
     <a class="flex flex-col justify-center h-full aspect-square items-center text-white" href="./swipe.html">

@@ -176,11 +176,12 @@ footer .icon {
 }
 
 .logo {
-  width: 50px;
+  width: 70px;
 }
 
 header {
-  height: 66px;
+  height: 48px;
+  padding: 17px;
 }
 
 footer {
