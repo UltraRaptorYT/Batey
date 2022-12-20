@@ -168,7 +168,8 @@ label[for="pfp"] {
 }
 
 .icon {
-  width: 40px;
+  width: 34px;
+  padding-bottom: 1px;
 }
 footer .icon {
   width: 30px;
